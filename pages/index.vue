@@ -10,8 +10,12 @@
           </h1>
           
           <v-slide-y-transition group>
-            <div v-for="(skill, index) in skills" :key="skill" v-show="currentSkill === index">
-              <h2 class="text-h4 text-secondary mb-6">{{ skill }}</h2>
+            <div class="skills-container">
+              <v-slide-y-transition group>
+                <div v-for="(skill, index) in skills" :key="skill" v-show="currentSkill === index" class="skill-item">
+                  <h2 class="text-h4 text-secondary mb-6">{{ skill }}</h2>
+                </div>
+              </v-slide-y-transition>
             </div>
           </v-slide-y-transition>
 
@@ -38,10 +42,11 @@
 
         <v-col cols="12" md="6" class="d-flex justify-center">
           <v-img
-            src="/images/profile.png"
+            src="/images/graduate.png"
             max-width="400"
             class="profile-image"
             :class="{ 'animate-float': true }"
+            style="background: transparent;"
           ></v-img>
         </v-col>
       </v-row>
@@ -157,4 +162,29 @@ const scrollToSection = (sectionId: string) => {
     transform: translateY(-10px);
   }
 }
-</style> 
+
+.skills-container {
+  height: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-item {
+  position: absolute;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.v-slide-y-transition-enter-active,
+.v-slide-y-transition-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.v-slide-y-transition-enter-from {
+  transform: translateY(100%);
+}
+
+.v-slide-y-transition-leave-to {
+  transform: translateY(-100%);
+}
+</style>
