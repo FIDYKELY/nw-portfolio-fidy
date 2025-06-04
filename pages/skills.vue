@@ -78,11 +78,12 @@
                     class="skill-card"
                   >
                     <v-card-text class="text-center">
-                      <v-icon
-                        :icon="skill.icon"
-                        size="large"
-                        :color="isHovering ? 'white' : 'secondary'"
-                      ></v-icon>
+                      <!-- Remplacer le v-icon par un i pour Devicon -->
+                      <i
+                        :class="skill.icon"
+                        style="font-size: 24px;"
+                        :style="{ color: isHovering ? 'white' : undefined }"
+                      ></i>
                       <div
                         class="text-body-2 mt-2"
                         :class="{ 'text-white': isHovering }"
@@ -159,25 +160,25 @@ const frontendSkills = [
 ]
 
 const backendSkills = [
-  { name: 'Node.js', icon: 'mdi-nodejs' },
-  { name: 'PHP', icon: 'mdi-language-php' },
-  { name: 'Python', icon: 'mdi-language-python' },
-  { name: 'MySQL', icon: 'mdi-database' },
-  { name: 'MongoDB', icon: 'mdi-database' },
-  { name: 'Symfony', icon: 'mdi-symfony' },
-  { name: 'Laravel', icon: 'mdi-laravel' },
-  { name: 'Express', icon: 'mdi-express' },
+  { name: 'Node.js', icon: 'devicon-nodejs-plain colored' },
+  { name: 'PHP', icon: 'devicon-php-plain colored' },
+  { name: 'Python', icon: 'devicon-python-plain colored' },
+  { name: 'MySQL', icon: 'devicon-mysql-plain colored' },
+  { name: 'MongoDB', icon: 'devicon-mongodb-plain colored' },
+  { name: 'Symfony', icon: 'devicon-symfony-plain colored' },
+  { name: 'Laravel', icon: 'devicon-laravel-plain colored' },
+  { name: 'Express', icon: 'devicon-express-original colored' },
 ]
 
 const toolsSkills = [
-  { name: 'Git', icon: 'mdi-git' },
-  { name: 'Docker', icon: 'mdi-docker' },
-  { name: 'VS Code', icon: 'mdi-microsoft-visual-studio-code' },
-  { name: 'Figma', icon: 'mdi-figma' },
-  { name: 'Jira', icon: 'mdi-jira' },
-  { name: 'Postman', icon: 'mdi-postman' },
-  { name: 'Webpack', icon: 'mdi-webpack' },
-  { name: 'Vite', icon: 'mdi-vite' },
+  { name: 'Git', icon: 'devicon-git-plain colored' },
+  { name: 'Docker', icon: 'devicon-docker-plain colored' },
+  { name: 'VS Code', icon: 'devicon-vscode-plain colored' },
+  { name: 'Figma', icon: 'devicon-figma-plain colored' },
+  { name: 'Jira', icon: 'devicon-jira-plain colored' },
+  { name: 'Postman', icon: 'devicon-postman-plain colored' },
+  { name: 'Webpack', icon: 'devicon-webpack-plain colored' },
+  { name: 'Vite', icon: 'devicon-vitejs-plain colored' },
 ]
 </script>
 
@@ -190,4 +191,4 @@ const toolsSkills = [
 .skill-card:hover {
   transform: translateY(-5px);
 }
-</style> 
+</style>

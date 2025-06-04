@@ -1,8 +1,21 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>
+
+<script setup>
+useHead({
+  link: [
+    {
+      rel: 'stylesheet',
+      href: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css'
+    }
+  ]
+})
+</script>
 
 <style>
 /* Styles globaux */
