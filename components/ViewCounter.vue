@@ -10,13 +10,19 @@ interface ViewsResponse {
   error?: string;
 }
 
+const route = useRoute()
 const views = ref(0)
 
 onMounted(async () => {
   // Incrémenter le compteur
-  await $fetch<ViewsResponse>('/api/views', { method: 'POST' })
+  await $fetch<ViewsResponse>('/api/views', { 
+    method: 'POST',
+    params: { path: route.path }
+  })
   // Récupérer le nombre total de vues
-  const response = await $fetch<ViewsResponse>('/api/views')
+  const response = await $fetch<ViewsResponse>('/api/views', {
+    params: { path: route.path }
+  })
   views.value = response.views
 })
 </script>
