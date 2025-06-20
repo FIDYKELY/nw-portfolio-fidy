@@ -35,11 +35,11 @@
                     class="skill-card"
                   >
                     <v-card-text class="text-center">
-                      <v-icon
-                        :icon="skill.icon"
-                        size="large"
-                        :color="isHovering ? 'white' : 'primary'"
-                      ></v-icon>
+                      <i
+                        :class="skill.icon"
+                        style="font-size: 32px;"
+                        :style="{ color: isHovering ? 'white' : undefined }"
+                      ></i>
                       <div
                         class="text-body-2 mt-2"
                         :class="{ 'text-white': isHovering }"
@@ -124,11 +124,11 @@
                     class="skill-card"
                   >
                     <v-card-text class="text-center">
-                      <v-icon
-                        :icon="skill.icon"
-                        size="large"
-                        :color="isHovering ? 'white' : 'accent'"
-                      ></v-icon>
+                      <i
+                        :class="skill.icon"
+                        style="font-size: 32px;"
+                        :style="{ color: isHovering ? 'white' : undefined }"
+                      ></i>
                       <div
                         class="text-body-2 mt-2"
                         :class="{ 'text-white': isHovering }"
@@ -149,14 +149,14 @@
 
 <script setup lang="ts">
 const frontendSkills = [
-  { name: 'Vue.js', icon: 'mdi-vuejs' },
-  { name: 'React', icon: 'mdi-react' },
-  { name: 'HTML5', icon: 'mdi-language-html5' },
-  { name: 'CSS3', icon: 'mdi-language-css3' },
-  { name: 'JavaScript', icon: 'mdi-language-javascript' },
-  { name: 'TypeScript', icon: 'mdi-language-typescript' },
-  { name: 'Tailwind', icon: 'mdi-tailwind' },
-  { name: 'Vuetify', icon: 'mdi-vuetify' },
+ { name: 'HTML5', icon: 'devicon-html5-plain colored' },
+  { name: 'CSS3', icon: 'devicon-css3-plain colored' },
+  { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
+  { name: 'TypeScript', icon: 'devicon-typescript-plain colored' },
+  { name: 'Vue.js', icon: 'devicon-vuejs-plain colored' },
+  { name: 'Nuxt', icon: 'devicon-nuxtjs-plain colored' },
+  { name: 'Vuetify', icon: 'devicon-vuetify-plain colored' }, // ⚠️ Vuetify n'existe pas dans devicon
+  { name: 'Tailwind', icon: 'devicon-tailwindcss-plain colored' }
 ]
 
 const backendSkills = [
@@ -164,21 +164,22 @@ const backendSkills = [
   { name: 'PHP', icon: 'devicon-php-plain colored' },
   { name: 'Python', icon: 'devicon-python-plain colored' },
   { name: 'MySQL', icon: 'devicon-mysql-plain colored' },
-  { name: 'MongoDB', icon: 'devicon-mongodb-plain colored' },
+  // { name: 'MongoDB', icon: 'devicon-mongodb-plain colored' },
   { name: 'Symfony', icon: 'devicon-symfony-plain colored' },
-  { name: 'Laravel', icon: 'devicon-laravel-plain colored' },
+  // { name: 'Laravel', icon: 'devicon-laravel-plain colored' },
   { name: 'Express', icon: 'devicon-express-original colored' },
 ]
 
 const toolsSkills = [
   { name: 'Git', icon: 'devicon-git-plain colored' },
-  { name: 'Docker', icon: 'devicon-docker-plain colored' },
+  // { name: 'Docker', icon: 'devicon-docker-plain colored' },
   { name: 'VS Code', icon: 'devicon-vscode-plain colored' },
-  { name: 'Figma', icon: 'devicon-figma-plain colored' },
-  { name: 'Jira', icon: 'devicon-jira-plain colored' },
   { name: 'Postman', icon: 'devicon-postman-plain colored' },
+  { name: 'Figma', icon: 'devicon-figma-plain colored' },
+  { name: 'Anaconda', icon: 'devicon-anaconda-plain colored' },
   { name: 'Webpack', icon: 'devicon-webpack-plain colored' },
   { name: 'Vite', icon: 'devicon-vitejs-plain colored' },
+  { name: 'Vercel', icon: 'devicon-vercel-original' }
 ]
 </script>
 

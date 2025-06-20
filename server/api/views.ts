@@ -1,29 +1,31 @@
-import { defineEventHandler, getQuery } from 'h3'
-import db from '../utils/db'
+// /api/views.ts
+import { createClient } from '@supabase/supabase-js'
 
-export default defineEventHandler(async (event) => {
-  const method = event.method
-  const query = getQuery(event)
-  const pagePath = query.path as string || '/'
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
 
-  if (method === 'GET') {
-    const stmt = db.prepare('SELECT view_count FROM page_views WHERE page_path = ?')
-    const result = stmt.get(pagePath)
-    return { views: result ? result.view_count : 0 }
-  } else if (method === 'POST') {
-    const stmt = db.prepare(`
-      INSERT INTO page_views (page_path, view_count) 
-      VALUES (?, 1) 
-      ON CONFLICT(page_path) 
-      DO UPDATE SET view_count = view_count + 1
-    `)
-    stmt.run(pagePath)
-    
-    // Récupérer le nouveau nombre de vues
-    const getStmt = db.prepare('SELECT view_count FROM page_views WHERE page_path = ?')
-    const result = getStmt.get(pagePath)
-    return { views: result.view_count }
+export default async function handler(req, res) {
+  const path = req.method === 'POST' ? req.body.path : req.query.path
+  if (!path) return res.status(400).json({ error: 'Missing path' })
+
+  // Incrémente le compteur si POST
+  if (req.method === 'POST') {
+    await supabase
+      .from('views')
+      .upsert({ path, count: 1 }, { onConflict: ['path'], ignoreDuplicates: false })
+      .select()
+    await supabase.rpc('increment_view', { page_path: path })
   }
 
-  return { error: 'Method not allowed' }
-}) 
+  // Récupère le nombre de vues
+  const { data, error } = await supabase
+    .from('views')
+    .select('count')
+    .eq('path', path)
+    .single()
+
+  if (error) return res.status(500).json({ error: error.message })
+  res.status(200).json({ views: data?.count ?? 0 })
+}

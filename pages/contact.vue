@@ -21,14 +21,14 @@
               <v-list-item
                 prepend-icon="mdi-email"
                 title="Email"
-                subtitle="votre-email@example.com"
+                subtitle="fidyfire@gmail.com"
                 class="mb-4"
               ></v-list-item>
 
               <v-list-item
                 prepend-icon="mdi-map-marker"
                 title="Localisation"
-                subtitle="Antananarivo, Madagascar"
+                subtitle="Antananarivo, Madagascar, Lot 96-0 Ambohitrinimanga Anosy Avaratra"
                 class="mb-4"
               ></v-list-item>
 
