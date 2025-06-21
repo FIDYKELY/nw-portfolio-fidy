@@ -17,7 +17,7 @@ onMounted(async () => {
   // Incrémenter le compteur
   await $fetch<ViewsResponse>('/api/views', { 
     method: 'POST',
-    params: { path: route.path }
+    body: { path: route.path }
   })
   // Récupérer le nombre total de vues
   const response = await $fetch<ViewsResponse>('/api/views', {

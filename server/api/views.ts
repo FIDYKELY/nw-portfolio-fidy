@@ -9,34 +9,24 @@ const supabase = createClient(
 
 export default defineEventHandler(async (event) => {
   if (event.method === 'POST') {
-    const body = await readBody(event)
-    const path = body?.path
-    if (!path) return { error: 'Missing path' }
+    // Incrémente le compteur global
+    await supabase.rpc('increment_view')
 
-    // Upsert pour créer la ligne si elle n'existe pas
-    await supabase
-      .from('views')
-      .upsert({ path, count: 1 }, { onConflict: 'path', ignoreDuplicates: false })
-    // Incrémente le compteur
-    await supabase.rpc('increment_view', { page_path: path })
-
-    // Récupère le nombre de vues
+    // Récupère le nombre de vues global
     const { data, error } = await supabase
       .from('views')
       .select('count')
-      .eq('path', path)
+      .eq('path', 'global')
       .single()
 
     if (error) return { error: error.message }
     return { views: data?.count ?? 0 }
   } else if (event.method === 'GET') {
-    const { path } = getQuery(event)
-    if (!path) return { error: 'Missing path' }
-
+    // Récupère le nombre de vues global
     const { data, error } = await supabase
       .from('views')
       .select('count')
-      .eq('path', path)
+      .eq('path', 'global')
       .single()
 
     if (error) return { error: error.message }
