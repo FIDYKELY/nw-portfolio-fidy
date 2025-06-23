@@ -497,12 +497,50 @@ const projects = [
     ]
   },
   {
-    name: 'Projet 2',
-    image: '/images/project2.jpg',
-    description: 'Description du projet 2',
-    tags: ['React', 'Express', 'PostgreSQL'],
-    github: 'https://github.com/username/project2',
-    demo: 'https://project2.demo',
+    name: 'Portfolio Personnel',
+    image: '/images/graduate.png',
+    description: 'Un portfolio professionnel développé avec Vue.js 3, Nuxt 3 et Vuetify 3, présentant mes compétences, expériences et projets. Le site offre une expérience utilisateur fluide avec des animations soignées, un design responsive et moderne, ainsi qu\'un système de contact intégré via Formspree.',
+    tags: ['Vue.js 3', 'Nuxt 3', 'Vuetify 3', 'TypeScript', 'Formspree', 'SQLite'],
+    github: 'https://github.com/FIDYKELY/portfolio-fidy',
+    demo: 'https://fidyniaina.com',
+    details: [
+      {
+        title: 'Interface Utilisateur',
+        description: 'Une interface utilisateur moderne et responsive développée avec Vuetify 3, offrant une expérience de navigation fluide et agréable sur tous les appareils.',
+        image: '/images/graduate.png',
+        features: [
+          'Design moderne et minimaliste',
+          'Animations et transitions fluides',
+          'Mode sombre/clair automatique',
+          'Navigation intuitive',
+          'Composants réutilisables'
+        ]
+      },
+      {
+        title: 'Fonctionnalités Techniques',
+        description: 'Un ensemble de fonctionnalités techniques modernes pour une expérience optimale, tant pour les visiteurs que pour la maintenance.',
+        image: '/images/graduate.png',
+        features: [
+          'Architecture Nuxt 3 pour des performances optimales',
+          'TypeScript pour un code robuste et maintenable',
+          'Intégration Formspree pour le formulaire de contact',
+          'Base de données SQLite pour le compteur de vues',
+          'SEO optimisé avec les meta-tags Nuxt'
+        ]
+      },
+      {
+        title: 'Sections Principales',
+        description: 'Une organisation claire du contenu en sections distinctes pour une présentation professionnelle et efficace.',
+        image: '/images/graduate.png',
+        features: [
+          'Page d\'accueil avec présentation personnelle',
+          'Section compétences avec niveaux de maîtrise',
+          'Portfolio de projets interactif',
+          'Page de contact avec formulaire Formspree',
+          'Section expérience professionnelle'
+        ]
+      }
+    ]
   },
 ]
 </script>
@@ -535,6 +573,25 @@ const projects = [
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+/* Styles pour empêcher la troncature des textes */
+:deep(.v-list-item-title) {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  display: block !important;
+}
+
+:deep(.v-list-item) {
+  white-space: normal !important;
+  height: auto !important;
+  min-height: 48px !important;
+}
+
+/* Ajout d'un peu d'espacement entre les items */
+:deep(.v-list-item:not(:last-child)) {
+  margin-bottom: 8px;
 }
 
 .dialog-bottom-transition-enter-active,
