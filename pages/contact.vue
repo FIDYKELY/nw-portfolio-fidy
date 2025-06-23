@@ -63,9 +63,13 @@
           <v-card-text>
             <h2 class="text-h5 mb-4">Envoyez-moi un message</h2>
             
-            <v-form @submit.prevent="submitForm" v-model="isFormValid">
+            <v-form
+              ref="form"
+              @submit.prevent="submitForm"
+              v-model="isFormValid"
+            >
               <v-text-field
-                v-model="form.name"
+                v-model="formData.name"
                 label="Nom"
                 :rules="[v => !!v || 'Le nom est requis']"
                 required
@@ -74,7 +78,7 @@
               ></v-text-field>
 
               <v-text-field
-                v-model="form.email"
+                v-model="formData.email"
                 label="Email"
                 :rules="[
                   v => !!v || 'L\'email est requis',
@@ -86,7 +90,7 @@
               ></v-text-field>
 
               <v-text-field
-                v-model="form.subject"
+                v-model="formData.subject"
                 label="Sujet"
                 :rules="[v => !!v || 'Le sujet est requis']"
                 required
@@ -95,7 +99,7 @@
               ></v-text-field>
 
               <v-textarea
-                v-model="form.message"
+                v-model="formData.message"
                 label="Message"
                 :rules="[v => !!v || 'Le message est requis']"
                 required
@@ -119,19 +123,47 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <!-- Notification -->
+    <v-snackbar
+      v-model="snackbar.show"
+      :color="snackbar.color"
+      :timeout="3000"
+    >
+      {{ snackbar.text }}
+      
+      <template v-slot:actions>
+        <v-btn
+          variant="text"
+          @click="snackbar.show = false"
+        >
+          Fermer
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script setup lang="ts">
+const form = ref<HTMLFormElement | null>(null)
 const isFormValid = ref(false)
 const isSubmitting = ref(false)
 
-const form = ref({
+const formData = ref({
   name: '',
   email: '',
   subject: '',
   message: '',
 })
+
+// Notification state
+const snackbar = ref({
+  show: false,
+  color: 'success',
+  text: ''
+})
+
+const FORMSPREE_URL = 'https://formspree.io/f/xovwkdkk'
 
 const socialLinks = [
   { icon: 'mdi-github', link: 'https://github.com/FIDYKELY' },
@@ -139,26 +171,63 @@ const socialLinks = [
   { icon: 'mdi-facebook', link: 'https://www.facebook.com/profile.php?id=100004683916160' },
 ]
 
+const showNotification = (message: string, type: 'success' | 'error' = 'success') => {
+  snackbar.value = {
+    show: true,
+    color: type,
+    text: message
+  }
+}
+
+const resetForm = () => {
+  formData.value = {
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  }
+  // Réinitialise la validation
+  form.value?.reset()
+}
+
 const submitForm = async () => {
   isSubmitting.value = true
-  
+
   try {
-    // Ici, vous pouvez ajouter la logique d'envoi du formulaire
-    await new Promise(resolve => setTimeout(resolve, 1000)) // Simulation d'envoi
-    
-    // Réinitialiser le formulaire
-    form.value = {
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
+    const response = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `[Portfolio] Nouveau message de ${formData.value.name}`,
+        // _replyto: formData.value.email,
+        "Nom Complet": formData.value.name,
+        "Adresse Email": formData.value.email,
+        "Sujet": formData.value.subject,
+        "Message": formData.value.message,
+        "Date d'envoi": new Date().toLocaleString('fr-FR', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        }),
+        "Source": "Portfolio - Page Contact"
+      }),
+    })
+
+    const result = await response.json()
+    if (response.ok) {
+      resetForm()
+      showNotification('Message envoyé avec succès !')
+    } else {
+      showNotification(result?.error || 'Une erreur est survenue. Veuillez réessayer.', 'error')
     }
-    
-    // Afficher un message de succès
-    alert('Message envoyé avec succès !')
   } catch (error) {
-    // Gérer les erreurs
-    alert('Une erreur est survenue. Veuillez réessayer.')
+    showNotification('Une erreur est survenue. Veuillez réessayer.', 'error')
   } finally {
     isSubmitting.value = false
   }

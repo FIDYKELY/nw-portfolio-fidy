@@ -1,6 +1,6 @@
 <template>
-  <div class="view-counter">
-    <span class="views">{{ views }} vues</span>
+  <div class="view-counter" v-if="isLoaded">
+    <span class="views">{{ views }} <i class="fa-solid fa-eye"></i></span>
   </div>
 </template>
 
@@ -12,20 +12,25 @@ interface ViewsResponse {
 
 const route = useRoute()
 const views = ref(0)
+const isLoaded = ref(false)
 
 onMounted(async () => {
   // Incrémenter le compteur
-  await $fetch<ViewsResponse>('/api/views', { 
+  await $fetch<ViewsResponse>('/api/views', {
     method: 'POST',
     body: { path: route.path }
   })
+
   // Récupérer le nombre total de vues
   const response = await $fetch<ViewsResponse>('/api/views', {
     params: { path: route.path }
   })
+
   views.value = response.views
+  isLoaded.value = true
 })
 </script>
+
 
 <style scoped>
 .view-counter {
