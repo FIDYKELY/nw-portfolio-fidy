@@ -89,7 +89,7 @@ const education = [
 
 const experiences = [
   {
-    title: 'Stage pré-embauche - Développeur Magento',
+    title: 'Stage - Développeur Magento',
     period: '2024-2025',
     description: 'Trois mois au sein de l\'Atout Service',
     color: 'primary'

@@ -65,7 +65,7 @@
         <v-card elevation="0" color="surface">
           <v-card-title class="text-h5 mb-4">
             <v-icon icon="mdi-folder" class="mr-2"></v-icon>
-            Projets
+            Projets récent
           </v-card-title>
           <v-card-text>
             <v-row>
@@ -194,7 +194,39 @@
         <v-divider class="my-4"></v-divider>
 
         <div v-for="(detail, index) in selectedProject.details" :key="index" class="mb-6">
-          <h3 class="text-h6 mb-4">{{ detail.title }}</h3>
+          <div class="d-flex align-center justify-space-between mb-4">
+            <h3 class="text-h6 mb-0">{{ detail.title }}</h3>
+            <v-btn
+              v-if="selectedProject.name === 'Système E-commerce Complet' && index === 0"
+              variant="text"
+              prepend-icon="mdi-github"
+              :href="'https://github.com/FIDYKELY/front-e-comm.git'"
+              target="_blank"
+              @click.stop
+            >
+              Code
+            </v-btn>
+            <v-btn
+              v-if="selectedProject.name === 'Système E-commerce Complet' && index === 1"
+              variant="text"
+              prepend-icon="mdi-github"
+              :href="'https://github.com/FIDYKELY/tp-cybersecurit--front'"
+              target="_blank"
+              @click.stop
+            >
+              Code
+            </v-btn>
+            <v-btn
+              v-if="selectedProject.name === 'Système E-commerce Complet' && index === 2"
+              variant="text"
+              prepend-icon="mdi-github"
+              :href="'https://github.com/FIDYKELY/backoffice-backend.git'"
+              target="_blank"
+              @click.stop
+            >
+              Code
+            </v-btn>
+          </div>
           <v-row>
             <v-col cols="12" md="6">
               <p class="text-body-1">{{ detail.description }}</p>
@@ -439,8 +471,8 @@ const projects = [
     image: '/images/project1.jpg',
     description: 'Un système e-commerce complet comprenant un frontend client, un backoffice d\'administration et une API REST. Le frontend client est développé avec Vue.js et Nuxt.js, offrant un catalogue de produits, panier d\'achat, et intégration Stripe. Le backoffice permet la gestion des utilisateurs, produits, commandes et statistiques. Le backend Node.js/Express gère toute la logique métier avec une architecture modulaire et sécurisée.',
     tags: ['Vue.js', 'Nuxt.js', 'Node.js', 'Express', 'Sequelize', 'TailwindCSS', 'Stripe'],
-    github: 'https://github.com/username/project1',
-    demo: 'https://project1.demo',
+    // github: 'https://github.com/username/project1',
+    // demo: 'https://project1.demo',
     details: [
       {
         title: 'Frontend Client',
@@ -497,17 +529,17 @@ const projects = [
     ]
   },
   {
-    name: 'Portfolio Personnel',
-    image: '/images/graduate.png',
+    name: 'Portfolio',
+    image: '/images/index.png',
     description: 'Un portfolio professionnel développé avec Vue.js 3, Nuxt 3 et Vuetify 3, présentant mes compétences, expériences et projets. Le site offre une expérience utilisateur fluide avec des animations soignées, un design responsive et moderne, ainsi qu\'un système de contact intégré via Formspree.',
     tags: ['Vue.js 3', 'Nuxt 3', 'Vuetify 3', 'TypeScript', 'Formspree', 'SQLite'],
-    github: 'https://github.com/FIDYKELY/portfolio-fidy',
-    demo: 'https://fidyniaina.com',
+    github: 'https://github.com/FIDYKELY/nw-portfolio-fidy.git',
+    demo: 'https://nw-portfolio-fidy.vercel.app/',
     details: [
       {
         title: 'Interface Utilisateur',
         description: 'Une interface utilisateur moderne et responsive développée avec Vuetify 3, offrant une expérience de navigation fluide et agréable sur tous les appareils.',
-        image: '/images/graduate.png',
+        image: '/images/exp.png',
         features: [
           'Design moderne et minimaliste',
           'Animations et transitions fluides',
@@ -519,7 +551,7 @@ const projects = [
       {
         title: 'Fonctionnalités Techniques',
         description: 'Un ensemble de fonctionnalités techniques modernes pour une expérience optimale, tant pour les visiteurs que pour la maintenance.',
-        image: '/images/graduate.png',
+        image: '/images/contact.png',
         features: [
           'Architecture Nuxt 3 pour des performances optimales',
           'TypeScript pour un code robuste et maintenable',
@@ -531,7 +563,7 @@ const projects = [
       {
         title: 'Sections Principales',
         description: 'Une organisation claire du contenu en sections distinctes pour une présentation professionnelle et efficace.',
-        image: '/images/graduate.png',
+        image: '/images/skills.png',
         features: [
           'Page d\'accueil avec présentation personnelle',
           'Section compétences avec niveaux de maîtrise',

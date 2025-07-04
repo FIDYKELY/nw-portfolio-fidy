@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      title: 'Fidiniaina – Portfolio',
       link: [
         {
           rel: 'stylesheet',
