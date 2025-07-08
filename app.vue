@@ -19,6 +19,15 @@ useHead({
 
 <style>
 /* Styles globaux */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
 html {
   scroll-behavior: smooth;
 }
@@ -40,15 +49,4 @@ body {
   opacity: 0;
 }
 
-/* Transitions de page */
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.3s;
-}
-
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  transform: translateY(20px);
-}
 </style>

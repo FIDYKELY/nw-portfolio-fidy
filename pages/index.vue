@@ -5,7 +5,7 @@
       <v-row align="center" justify="center">
         <v-col cols="12" md="6" class="text-center text-md-left">
           <h1 class="text-h2 font-weight-bold mb-4">
-            Bonjour, moi c'est
+            Ratsimanohatra
             <span class="text-primary">Fidiniaina</span>
           </h1>
           
