@@ -93,7 +93,6 @@ const drawer = ref(false)
 
 const navItems = [
   { title: 'Accueil', to: '/' },
-  { title: 'À Propos', to: '/about' },
   { title: 'Compétences', to: '/skills' },
   { title: 'Projets', to: '/projects' },
   { title: 'Contact', to: '/contact' },

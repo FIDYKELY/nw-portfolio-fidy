@@ -1,4 +1,5 @@
 <template>
+  <div>
   <v-container class="py-16">
     <v-row>
       <v-col cols="12" class="text-center mb-8">
@@ -373,6 +374,7 @@
       </v-card-text>
     </v-card>
   </v-dialog>
+</div>
 </template>
 
 <script setup lang="ts">
