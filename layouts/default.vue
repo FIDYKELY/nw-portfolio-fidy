@@ -100,7 +100,7 @@ const navItems = [
 
 const socialLinks = [
   { icon: 'mdi-github', link: 'https://github.com/FIDYKELY' },
-  { icon: 'mdi-linkedin', link: 'https://www.linkedin.com/in/fidy-niaina-107273319/' },
+  { icon: 'mdi-linkedin', link: 'https://www.linkedin.com/in/ratsimanohatra-fidiniaina-2913b8212/' },
   { icon: 'mdi-facebook', link: 'https://www.facebook.com/profile.php?id=100004683916160' },
 ]
 </script>
