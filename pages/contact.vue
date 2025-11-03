@@ -21,7 +21,7 @@
               <v-list-item
                 prepend-icon="mdi-email"
                 title="Email"
-                subtitle="fidyfire@gmail.com"
+                subtitle="fidy.ratsimanohatra@gmail.com"
                 class="mb-4"
               ></v-list-item>
 
