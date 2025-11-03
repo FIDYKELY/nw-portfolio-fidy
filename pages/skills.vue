@@ -78,7 +78,6 @@
                     class="skill-card"
                   >
                     <v-card-text class="text-center">
-                      <!-- Remplacer le v-icon par un i pour Devicon -->
                       <i
                         :class="skill.icon"
                         style="font-size: 24px;"
@@ -155,7 +154,7 @@ const frontendSkills = [
   { name: 'TypeScript', icon: 'devicon-typescript-plain colored' },
   { name: 'Vue.js', icon: 'devicon-vuejs-plain colored' },
   { name: 'Nuxt', icon: 'devicon-nuxtjs-plain colored' },
-  { name: 'Vuetify', icon: 'devicon-vuetify-plain colored' }, // ⚠️ Vuetify n'existe pas dans devicon
+  { name: 'Vuetify', icon: 'devicon-vuetify-plain colored' }, 
   { name: 'Tailwind', icon: 'devicon-tailwindcss-plain colored' }
 ]
 
@@ -175,7 +174,7 @@ const toolsSkills = [
   // { name: 'Docker', icon: 'devicon-docker-plain colored' },
   { name: 'VS Code', icon: 'devicon-vscode-plain colored' },
   { name: 'Postman', icon: 'devicon-postman-plain colored' },
-  { name: 'Figma', icon: 'devicon-figma-plain colored' },
+  { name: 'WordPress', icon: 'devicon-wordpress-plain colored' },
   { name: 'Anaconda', icon: 'devicon-anaconda-plain colored' },
   { name: 'Webpack', icon: 'devicon-webpack-plain colored' },
   { name: 'Vite', icon: 'devicon-vitejs-plain colored' },

@@ -383,7 +383,7 @@ interface ProjectDetail {
   description: string
   image: string
   features: string[]
-  images?: string[] // Array of additional images for carousel
+  images?: string[] 
 }
 
 interface Project {
@@ -446,6 +446,16 @@ const previousImage = (detailIndex: number) => {
 
 const experiences = [
   {
+    company: 'SMART DEV',
+    title: 'Développeur WordPress',
+    period: 'Actuellement en poste',
+    tasks: [
+      "Création d'une page personnalisée sur le site (contenu + design)",
+      'Intégration du design en respectant la charte graphique',
+      'Modifications mineures du back-office pour faciliter la gestion du contenu',
+    ],
+  },
+  {
     company: 'Atout Service',
     title: 'Développeur Magento',
     period: '2024-2025',
@@ -468,6 +478,55 @@ const experiences = [
 ]
 
 const projects = [
+  {
+    name: "MNACOM",
+    image: "/images/hero.png",
+    description: "Un site vitrine one-page simple réalisé avec Elementor sur WordPress, intégrant un design personnalisé et un contenu adapté aux besoins du client, avec des ajustements back-office pour faciliter la gestion future.",
+    tags: ["WordPress", "Elementor", "PHP", "CSS", "Responsive Design"],
+    github: null,
+    // demo: "https://mnacom.net/",
+    details: [
+      {
+        title: "Design et Intégration",
+        description: "Création d'une page unique avec Elementor, en respectant la charte graphique du client et en assurant une expérience utilisateur fluide et responsive.",
+        images: [
+          '/images/mna.png',
+          '/images/mna1.png',
+          '/images/mna2.png',
+          '/images/mna3.png',
+          '/images/mna4.png',
+        ],
+        features: [
+          "Conception one-page simple et claire",
+          "Personnalisation via Elementor sans codage complexe",
+          "Mise en page responsive adaptée aux mobiles et tablettes",
+          "Optimisation des contenus pour une bonne lisibilité"
+        ]
+      },
+      {
+        title: "Gestion WordPress",
+        description: "Ajustements dans le back-office pour simplifier la gestion du site par le client, avec des modifications mineures des réglages et options.",
+        image: "/images/admin-wp.png",
+        features: [
+          "Configuration basique du back-office WordPress",
+          "Modification des options pour faciliter la mise à jour du contenu",
+          "Utilisation d’Elementor pour une édition facile par le client",
+          "Sécurisation des accès et des contenus"
+        ]
+      },
+      {
+        title: "Livraison et Maintenance",
+        description: "Livraison d’un site fonctionnel et facile à maintenir, prêt à évoluer selon les besoins futurs du client.",
+        image: "/images/mnacom-maintenance.png",
+        features: [
+          "Mise en ligne rapide et fiable",
+          "Suivi des mises à jour WordPress et plugins",
+          "Support pour les évolutions futures du site",
+          "Conseils pour la gestion autonome du contenu"
+        ]
+      }
+    ]
+  },
   {
     name: 'Système E-commerce Complet',
     image: '/images/project1.jpg',

@@ -197,6 +197,12 @@ const education = [
 ]
 
 const experiences = [
+    {
+    title: 'Développeur Wordpress',
+    period: '2025-Présent',
+    description: 'Actuellement en poste de Développeur Wordpress',
+    color: 'accent'
+  },
   {
     title: 'Stage - Développeur Magento',
     period: '2024-2025',
