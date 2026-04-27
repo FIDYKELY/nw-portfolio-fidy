@@ -11,7 +11,6 @@
       <v-container class="d-flex align-center">
         <v-app-bar-title class="text-h5 font-weight-bold">
           <span class="text-primary">Fidiniaina</span>
-          <ViewCounter class="ml-2" />
         </v-app-bar-title>
 
         <v-spacer></v-spacer>
