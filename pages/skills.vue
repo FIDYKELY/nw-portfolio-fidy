@@ -35,7 +35,15 @@
                     class="skill-card"
                   >
                     <v-card-text class="text-center">
+                      <template v-if="skill.type === 'image'">
+                        <img
+                          :src="skill.icon"
+                          :alt="skill.name"
+                          style="width: 32px; height: 32px; object-fit: contain;"
+                        />
+                      </template>
                       <i
+                        v-else
                         :class="skill.icon"
                         style="font-size: 32px;"
                         :style="{ color: isHovering ? 'white' : undefined }"
@@ -78,7 +86,15 @@
                     class="skill-card"
                   >
                     <v-card-text class="text-center">
+                      <template v-if="skill.type === 'image'">
+                        <img
+                          :src="skill.icon"
+                          :alt="skill.name"
+                          style="width: 24px; height: 24px; object-fit: contain;"
+                        />
+                      </template>
                       <i
+                        v-else
                         :class="skill.icon"
                         style="font-size: 24px;"
                         :style="{ color: isHovering ? 'white' : undefined }"
@@ -123,7 +139,15 @@
                     class="skill-card"
                   >
                     <v-card-text class="text-center">
+                      <template v-if="skill.type === 'image'">
+                        <img
+                          :src="skill.icon"
+                          :alt="skill.name"
+                          style="width: 32px; height: 32px; object-fit: contain;"
+                        />
+                      </template>
                       <i
+                        v-else
                         :class="skill.icon"
                         style="font-size: 32px;"
                         :style="{ color: isHovering ? 'white' : undefined }"
@@ -148,13 +172,14 @@
 
 <script setup lang="ts">
 const frontendSkills = [
- { name: 'HTML5', icon: 'devicon-html5-plain colored' },
+  { name: 'HTML5', icon: 'devicon-html5-plain colored' },
   { name: 'CSS3', icon: 'devicon-css3-plain colored' },
   { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
-  { name: 'TypeScript', icon: 'devicon-typescript-plain colored' },
+  { name: 'Elementor', icon: '/images/elementor.svg',
+    type: 'image'},
   { name: 'Vue.js', icon: 'devicon-vuejs-plain colored' },
   { name: 'Nuxt', icon: 'devicon-nuxtjs-plain colored' },
-  { name: 'Vuetify', icon: 'devicon-vuetify-plain colored' }, 
+  { name: 'Vuetify', icon: 'devicon-vuetify-plain colored' },
   { name: 'Tailwind', icon: 'devicon-tailwindcss-plain colored' }
 ]
 
@@ -176,9 +201,13 @@ const toolsSkills = [
   { name: 'Postman', icon: 'devicon-postman-plain colored' },
   { name: 'WordPress', icon: 'devicon-wordpress-plain colored' },
   { name: 'Anaconda', icon: 'devicon-anaconda-plain colored' },
-  { name: 'Webpack', icon: 'devicon-webpack-plain colored' },
-  { name: 'Vite', icon: 'devicon-vitejs-plain colored' },
-  { name: 'Vercel', icon: 'devicon-vercel-original' }
+  { name: 'Puppeteer', icon: 'devicon-puppeteer-plain colored' },
+  { name: 'Docker', icon: 'devicon-docker-plain colored' },
+  {
+    name: 'n8n',
+    icon: '/images/N8n-logo-new.svg',
+    type: 'image'
+  }
 ]
 </script>
 

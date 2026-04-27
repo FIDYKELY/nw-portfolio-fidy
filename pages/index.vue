@@ -76,11 +76,7 @@
                 À propos
               </h1>
               <p class="text-h6 about-description">
-                Développeur web passionné par la création d'applications innovantes.
-                Curieux, rigoureux et toujours en quête de nouveaux défis, j’aime apprendre et partager mes connaissances.
-                J’accorde une grande importance à la qualité du code, à l’expérience utilisateur et à la performance des applications.
-                Mon objectif est de concevoir des solutions numériques qui ont un impact positif et durable.
-                
+                Développeur web passionné par la création de solutions innovantes et automatisées. Curieux, rigoureux et toujours en quête de nouveaux défis, j’aime apprendre et expérimenter autour du développement web, de l’automatisation et des agents IA. J’accorde une grande importance à la qualité du code, à la performance et à l’efficacité des outils que je construis. Mon objectif est de concevoir des solutions numériques utiles, fiables et adaptées aux besoins réels.    
               </p>
             </v-col>
           </v-row>
@@ -149,10 +145,9 @@
 
 <script setup lang="ts">
 const skills = [
-  'Ingénieur en informatique',
   'Développeur frontend',
   'Développeur backend',
-  'Développeur fullstack'
+  'Développeur Web & Automatisation'
 ]
 
 const currentSkill = ref(0)
@@ -198,9 +193,9 @@ const education = [
 
 const experiences = [
     {
-    title: 'Développeur Wordpress',
+    title: 'Développeur Web & Automatisation',
     period: '2025-Présent',
-    description: 'Actuellement en poste de Développeur Wordpress',
+    description: 'Actuellement en poste de Développeur Web & Automatisation',
     color: 'accent'
   },
   {

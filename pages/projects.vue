@@ -447,12 +447,15 @@ const previousImage = (detailIndex: number) => {
 const experiences = [
   {
     company: 'SMART DEV',
-    title: 'Développeur WordPress',
+    title: 'Développeur Web & Automatisation',
     period: 'Actuellement en poste',
     tasks: [
-      "Création d'une page personnalisée sur le site (contenu + design)",
-      'Intégration du design en respectant la charte graphique',
-      'Modifications mineures du back-office pour faciliter la gestion du contenu',
+      'Conception et développement de plugins WordPress personnalisés de A à Z (CPT, hooks, interfaces admin, API)',
+    'Refonte complète de sites WordPress avec optimisation des performances, migration et sécurisation',
+    'Création et orchestration d\'assistants virtuels et d\'agents d\'automatisation workflow via n8n',
+    'Développement de robots d\'automatisation web et d\'interaction UI avec Puppeteer',
+    'Mise en place d\'une plateforme de scraping web scalable avec Puppeteer (gestion de sessions, parsing, export structuré)',
+    'Intégrations API, optimisation back-office et pilotage de projets transverses fullstack',
     ],
   },
   {
@@ -478,6 +481,179 @@ const experiences = [
 ]
 
 const projects = [
+    {
+    name: 'Sunny Pool — Assistant Piscine Intelligent',
+    image: '/images/accueuil-sunny.png',
+    description: 'Plugin WordPress 100% personnalisé avec assistant virtuel IA (n8n + OpenAI) pour la gestion et le conseil piscine : analyse d\'eau, produits, météo, chat en temps réel, et automatisation des tâches d\'entretien.',
+    tags: ['WordPress', 'n8n', 'Elementor', 'OpenAI API', 'REST API', 'MySQL'],
+    github: 'https://github.com/FIDYKELY/sunny-pool.git', 
+    demo: 'https://sunny.trouvezpourmoi.com/', 
+    details: [
+      {
+        title: 'Plugin WordPress Personnalisé',
+        description: 'Développement d\'un plugin complet avec Custom Post Type "Piscine", gestion des produits d\'entretien, upload d\'images, et interface front-end via shortcodes.',
+        images: [
+          '/images/mes-piscines.png',
+          '/images/produits.png',
+          '/images/single.png',
+        ],
+        features: [
+          'CPT "Piscine" avec champs ACF personnalisés (volume, filtration, traitement, géolocalisation)',
+          'Gestion CRUD des produits d\'entretien avec upload de photos (face + notice)',
+          'Shortcodes [user_piscine], [sunny_pool_form], [sunny_chat] pour intégration flexible',
+          'Template personnalisé single-piscine.php avec design responsive et galeries',
+          'API REST WordPress étendue avec endpoints sécurisés (JWT + nonce)'
+        ]
+      },
+      {
+        title: 'Assistant Virtuel IA (n8n + OpenAI)',
+        description: 'Workflow n8n complet orchestrant l\'analyse d\'images, la compréhension du contexte piscine, et la génération de réponses personnalisées via GPT-4o avec vision.',
+        image: '/images/sunny-n8n-workflow.jpg',
+        images: [
+          '/images/workflow.png',
+          '/images/chat-sunny.png',
+        ],
+        features: [
+          'Webhook WordPress → n8n avec payload enrichi (piscine, météo, produits, historique)',
+          'Prompt engineering dynamique selon le type de requête (chat libre ou analyse structurée)',
+          'Extraction automatique des valeurs depuis photos de bandelettes (OCR visuel GPT-4o)',
+          'Génération d\'alertes contextuelles (pH, chlore, température, météo)',
+          'Callback asynchrone n8n → WordPress avec polling frontend pour UX fluide'
+        ]
+      },
+      {
+        title: 'Interface Chat UX/UI Avancée',
+        description: 'Interface de conversation moderne avec drawers, suggestions rapides, upload d\'images, gestion des threads, et feedback visuel en temps réel.',
+        image: '/images/sunny-chat-ui.jpg',
+        images: [
+          '/images/chat-sunny.png',
+          '/images/analyse-eau.png',
+          '/images/resultat.png',
+          '/images/discussions.png',
+        ],
+        features: [
+          'Design glassmorphism avec animations fluides et responsive mobile-first',
+          'Drawers pour analyse d\'eau, produits, options et historique des discussions',
+          'Gestion des threads de conversation (création, renommage, suppression)',
+          'Upload d\'images avec preview, compression et envoi base64 sécurisé',
+          'Système de toast notifications et skeleton loading pour une UX premium'
+        ]
+      },
+      {
+        title: 'Architecture Technique & Sécurité',
+        description: 'Backend robuste avec validation des permissions, gestion des uploads, géocodage, et communication sécurisée entre WordPress et n8n.',
+        image: '/images/sunny-architecture.jpg',
+        features: [
+          'Authentification JWT + nonce WordPress pour les appels API',
+          'Validation stricte des inputs et sanitization des données',
+          'Gestion des uploads d\'images avec vérification MIME et limite de taille',
+          'Géocodage via OpenStreetMap Nominatim pour la météo locale',
+          'Clé secrète X-N8N-Secret pour authentifier les callbacks n8n',
+          'Stockage des produits en post_meta JSON pour flexibilité et performance'
+        ]
+      }
+    ]
+  },
+    {
+    "name": "scrapHunter — Plateforme de Prospection B2B Intelligente",
+    "image": "/images/scrape-landing.png",
+    "description": "Plateforme complète de prospection B2B qui automatise la recherche d'entreprises, l'enrichissement de données et la qualification des leads. Combine scraping multi-sources, IA de scoring, et intégrations CRM pour transformer la prospection commerciale.",
+    "tags": ["Node.js", "Express", "Puppeteer", "PostgreSQL", "Web Scraping", "API Integration", "CRM", "Business Intelligence"],
+    "github": "https://github.com/FIDYKELY/scrapHunter.git",
+    "details": [
+      {
+        "title": "Collecte Multi-Sources Automatisée",
+        "description": "Système intelligent qui explore automatiquement plusieurs sources pour trouver des entreprises pertinentes, avec gestion des limites et fallbacks pour maximiser les résultats.",
+        "image": "/images/scrape-multi.png",
+        "images": [
+          "/images/scrape-multi.png",
+          "/images/scrape-begin.png",
+          "/images/resultat.png",
+          "/images/discussions.png"
+        ],
+        "features": [
+          "OpenStreetMap : accès direct aux données via Overpass API avec gestion multi-serveurs",
+          "PagesJaunes : scraping intelligent avec navigation automatique et extraction complète",
+          "Apify Google Maps : import de données externes pré-collectées pour accélérer la prospection",
+          "Données de test : fallback réaliste pour garantir le fonctionnement même si les sources échouent",
+          "Gestion intelligente des départements : adaptation automatique pour zones denses (Paris, Lyon, Marseille)",
+          "Rate limiting adaptatif : respect des limites de chaque source pour éviter les blocages"
+        ]
+      },
+      {
+        "title": "Enrichissement Intelligent des Données",
+        "description": "Pipeline complet qui transforme les informations brutes en fiches détaillées et exploitables commercialement, avec détection automatique des données manquantes.",
+        "features": [
+          "Google Maps dual-mode : API rapide pour la vitesse, Puppeteer stealth comme backup",
+          "Sites web : extraction automatique des coordonnées, clics sur boutons 'afficher téléphone'",
+          "Emails validés : filtrage intelligent des placeholders et adresses invalides",
+          "Réseaux sociaux : détection LinkedIn, Facebook, Instagram via analyse DOM et APIs externes",
+          "Normalisation robuste : formatage uniforme des téléphones, domaines et noms pour déduplication",
+          "Enrichissement sélectif : focus sur les leads 'pauvres' pour optimiser les ressources"
+        ]
+      },
+      {
+        "title": "Scoring & Qualification IA",
+        "description": "Algorithme de notation intelligent qui évalue chaque prospect sur 100 points pour identifier les meilleures opportunités commerciales automatiquement.",
+        "features": [
+          "Scoring pondéré : évaluation multicritères (type profil, email, téléphone, réseaux sociaux, Google)",
+          "Priorisation automatique : classification A/B/C/D avec explications claires du score",
+          "Indicateurs de qualité : HIGH/MEDIUM/LOW basés sur la complétude des informations",
+          "Raisons explicites : chaque lead est accompagné de sa justification de score",
+          "Adaptation sectorielle : scoring ajustable selon les spécificités du marché cible"
+        ]
+      },
+      {
+        "title": "Intégrations CRM & Workflow",
+        "description": "Connecteurs natifs avec les principaux outils commerciaux pour intégrer parfaitement les leads dans les processus existants.",
+        "features": [
+          "n8n : envoi un par un avec rate limiting pour respecter les limites des webhooks",
+          "HubSpot : création automatique Companies/Contacts avec déduplication intelligente",
+          "Google Sheets : génération automatique de feuilles de calcul partagées",
+          "Webhooks personnalisables : format adaptable selon les besoins du client",
+          "Synchronisation bi-directionnelle : mise à jour des statuts depuis les CRM",
+          "Historique complet : tracking de chaque interaction avec les leads"
+        ]
+      },
+      {
+        "title": "Interface Utilisateur & Monitoring",
+        "description": "Dashboard moderne pour piloter les campagnes de prospection, monitorer les performances en temps réel et gérer les équipes.",
+        "features": [
+          "Interface web responsive : pilotage complet depuis navigateur desktop/mobile",
+          "Monitoring temps réel : suivi des campagnes, statistiques, logs détaillés",
+          "Gestion multi-utilisateurs : file d'attente PostgreSQL pour travail collaboratif",
+          "Contrôle total : démarrage/arrêt/pause des campagnes à tout moment",
+          "Exports flexibles : CSV, JSON, Google Sheets selon les besoins",
+          "Alertes intelligentes : notifications en cas d'erreurs ou d'anomalies"
+        ]
+      },
+      {
+        "title": "Fiabilité & Performance",
+        "description": "Architecture robuste conçue pour les volumes élevés avec gestion d'erreurs gracieuse et optimisation continue.",
+        "features": [
+          "Gestion d'erreurs 'fail-soft' : jamais de perte de lead pour problème technique",
+          "Rate limiting intelligent : adaptation automatique selon les réponses des sources",
+          "Logs structurés : traçabilité complète avec contexte pour débogage rapide",
+          "Configuration flexible : variables d'environnement pour adapter à chaque client",
+          "Tests automatisés : validation continue des fonctionnalités critiques",
+          "Monitoring proactif : détection des anomalies avant impact utilisateur"
+        ]
+      },
+      {
+        "title": "Cas d'Usage & ROI",
+        "description": "Solution complète pour les équipes commerciales qui cherchent à accélérer leur prospection avec des données qualifiées et exploitables.",
+        "features": [
+          "Accélération prospection : 10x plus rapide que la recherche manuelle",
+          "Qualité garantie : scoring IA pour focus sur les leads les plus pertinents",
+          "ROI mesurable : tracking des conversions depuis la source jusqu'à la vente",
+          "Scalabilité : adaptation aux besoins de PME comme de grands comptes",
+          "Conformité : respect des RGPD et bonnes pratiques de collecte de données",
+          "Personnalisation : adaptation sectorielle selon les marchés cibles"
+        ]
+      }
+    ]
+  },
+
   {
     name: "MNACOM",
     image: "/images/hero.png",
@@ -635,6 +811,7 @@ const projects = [
       }
     ]
   },
+ 
 ]
 </script>
 
