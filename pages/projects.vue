@@ -481,75 +481,73 @@ const experiences = [
 ]
 
 const projects = [
-    {
+      {
     name: 'Sunny Pool — Assistant Piscine Intelligent',
     image: '/images/accueuil-sunny.png',
-    description: 'Plugin WordPress 100% personnalisé avec assistant virtuel IA (n8n + OpenAI) pour la gestion et le conseil piscine : analyse d\'eau, produits, météo, chat en temps réel, et automatisation des tâches d\'entretien.',
+    description: 'Application web complète qui accompagne les propriétaires de piscine au quotidien : analyse d\'eau par IA (photo de bandelette), conseils personnalisés, gestion des produits d\'entretien, météo locale et messagerie instantanée avec un assistant virtuel expert.',
     tags: ['WordPress', 'n8n', 'Elementor', 'OpenAI API', 'REST API', 'MySQL'],
     github: 'https://github.com/FIDYKELY/sunny-pool.git', 
     demo: 'https://sunny.trouvezpourmoi.com/', 
     details: [
       {
-        title: 'Plugin WordPress Personnalisé',
-        description: 'Développement d\'un plugin complet avec Custom Post Type "Piscine", gestion des produits d\'entretien, upload d\'images, et interface front-end via shortcodes.',
+        title: 'Gestion Complète de la Piscine',
+        description: 'Espace personnel dédié à chaque piscine avec suivi des caractéristiques (volume, filtration, traitement), géolocalisation pour la météo, et inventaire des produits d\'entretien avec photos.',
         images: [
           '/images/mes-piscines.png',
           '/images/produits.png',
           '/images/single.png',
         ],
         features: [
-          'CPT "Piscine" avec champs ACF personnalisés (volume, filtration, traitement, géolocalisation)',
-          'Gestion CRUD des produits d\'entretien avec upload de photos (face + notice)',
-          'Shortcodes [user_piscine], [sunny_pool_form], [sunny_chat] pour intégration flexible',
-          'Template personnalisé single-piscine.php avec design responsive et galeries',
-          'API REST WordPress étendue avec endpoints sécurisés (JWT + nonce)'
+          'Tableau de bord avec toutes les piscines regroupées',
+          'Fiches détaillées par piscine (volume, type, équipements)',
+          'Gestion des produits avec photos et quantités',
+          'Formulaires intuitifs pour ajouter ou modifier une piscine',
+          'Visualisation responsive sur mobile et desktop'
         ]
       },
       {
-        title: 'Assistant Virtuel IA (n8n + OpenAI)',
-        description: 'Workflow n8n complet orchestrant l\'analyse d\'images, la compréhension du contexte piscine, et la génération de réponses personnalisées via GPT-4o avec vision.',
+        title: 'Analyse d\'Eau par Intelligence Artificielle',
+        description: 'Système innovant qui lit automatiquement les valeurs des bandelettes de test via photo, génère des alertes personnalisées et recommande les traitements adaptés à chaque situation.',
         image: '/images/sunny-n8n-workflow.jpg',
         images: [
           '/images/workflow.png',
-          '/images/chat-sunny.png',
+          '/images/analyse-eau.png',
+          '/images/resultat.png',
         ],
         features: [
-          'Webhook WordPress → n8n avec payload enrichi (piscine, météo, produits, historique)',
-          'Prompt engineering dynamique selon le type de requête (chat libre ou analyse structurée)',
-          'Extraction automatique des valeurs depuis photos de bandelettes (OCR visuel GPT-4o)',
-          'Génération d\'alertes contextuelles (pH, chlore, température, météo)',
-          'Callback asynchrone n8n → WordPress avec polling frontend pour UX fluide'
+          'Analyse visuelle des bandelettes (pH, chlore, TAC, stabilisant)',
+          'Alertes intelligentes selon la météo et la température',
+          'Recommandations de traitement personnalisées',
+          'Historique des analyses pour suivre l\'évolution',
+          'Scores de qualité d\'eau avec indicateurs visuels'
         ]
       },
       {
-        title: 'Interface Chat UX/UI Avancée',
-        description: 'Interface de conversation moderne avec drawers, suggestions rapides, upload d\'images, gestion des threads, et feedback visuel en temps réel.',
+        title: 'Assistant Virtuel Sunny — Chat Intelligent',
+        description: 'Messagerie instantanée avec Sunny, un assistant virtuel expert qui répond aux questions, guide l\'entretien quotidien et s\'adapte au contexte de chaque piscine.',
         image: '/images/sunny-chat-ui.jpg',
         images: [
           '/images/chat-sunny.png',
-          '/images/analyse-eau.png',
-          '/images/resultat.png',
           '/images/discussions.png',
         ],
         features: [
-          'Design glassmorphism avec animations fluides et responsive mobile-first',
-          'Drawers pour analyse d\'eau, produits, options et historique des discussions',
-          'Gestion des threads de conversation (création, renommage, suppression)',
-          'Upload d\'images avec preview, compression et envoi base64 sécurisé',
-          'Système de toast notifications et skeleton loading pour une UX premium'
+          'Chat en temps réel avec réponses instantanées',
+          'Envoi de photos pour diagnostic visuel',
+          'Conversations organisées par thèmes (discussions multiples)',
+          'Suggestions rapides pour les questions fréquentes',
+          'Intégration météo et données piscine dans les réponses'
         ]
       },
       {
-        title: 'Architecture Technique & Sécurité',
-        description: 'Backend robuste avec validation des permissions, gestion des uploads, géocodage, et communication sécurisée entre WordPress et n8n.',
-        image: '/images/sunny-architecture.jpg',
+        title: 'Expérience Utilisateur Premium',
+        description: 'Interface moderne et intuitive pensée pour une utilisation quotidienne simple, avec design responsive, animations fluides et feedback visuel immédiat.',
+        image: '/images/sunny-chat-ui.jpg',
         features: [
-          'Authentification JWT + nonce WordPress pour les appels API',
-          'Validation stricte des inputs et sanitization des données',
-          'Gestion des uploads d\'images avec vérification MIME et limite de taille',
-          'Géocodage via OpenStreetMap Nominatim pour la météo locale',
-          'Clé secrète X-N8N-Secret pour authentifier les callbacks n8n',
-          'Stockage des produits en post_meta JSON pour flexibilité et performance'
+          'Design "glassmorphism" élégant et moderne',
+          'Navigation par tiroirs (drawers) sans rechargement',
+          'Mode sombre adapté à l\'utilisation extérieure',
+          'Compatible mobile, tablette et desktop',
+          'Notifications toast et indicateurs de chargement'
         ]
       }
     ]
