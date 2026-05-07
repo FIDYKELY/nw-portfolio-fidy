@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     enabled: true
   },
   compatibilityDate: '2025-05-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   css: ['vuetify/styles', '@fortawesome/fontawesome-free/css/all.min.css'],
   build: {
     transpile: ['vuetify'],
