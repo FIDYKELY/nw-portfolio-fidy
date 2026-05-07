@@ -19,6 +19,12 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           href: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css'
         }
+      ],
+      meta: [
+        {
+          name: 'google-site-verification',
+          content: 'google1d67374375d171ee.html'
+        }
       ]
     },
     pageTransition: { name: 'page', mode: 'in-out' }
