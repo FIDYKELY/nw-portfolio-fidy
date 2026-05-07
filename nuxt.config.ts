@@ -2,15 +2,16 @@
 import vuetify from 'vite-plugin-vuetify';
 
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/sitemap', '@nuxtjs/robots'],
+  modules: ['nuxt-seo'],
   site: {
-    url: 'https://nw-portfolio-fidy.vercel.app'
+    url: 'https://nw-portfolio-fidy.vercel.app',
+    name: 'nw-portfolio-fidy'
   },
-   sitemap: {
-    autoLastmod: true
+  sitemap: {
+    enabled: true
   },
   robots: {
-     allow: ['/']
+    enabled: true
   },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
