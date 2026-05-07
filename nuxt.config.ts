@@ -2,6 +2,10 @@
 import vuetify from 'vite-plugin-vuetify';
 
 export default defineNuxtConfig({
+  modules: ['@nuxtjs/sitemap'],
+  sitemap: {
+    hostname: 'https://nw-portfolio-fidy.vercel.app'
+  },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   css: ['vuetify/styles', '@fortawesome/fontawesome-free/css/all.min.css'],
