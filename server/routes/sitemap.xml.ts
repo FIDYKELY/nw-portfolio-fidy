@@ -1,9 +1,5 @@
-export default defineEventHandler(async (event) => {
-  const { sitemap } = await import('#build/nitro/prerender.mjs').catch(() => ({}));
-  
-  // Récupérer les URLs depuis la configuration Nuxt
-  const config = useRuntimeConfig();
-  const baseURL = config.public.siteUrl || 'https://nw-portfolio-fidy.vercel.app';
+export default defineEventHandler((event) => {
+  const baseURL = 'https://nw-portfolio-fidy.vercel.app';
   
   // URLs du sitemap
   const urls = [
