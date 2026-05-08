@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     name: 'nw-portfolio-fidy'
   },
   sitemap: {
-    enabled: true
+    enabled: false
   },
   robots: {
     enabled: true
