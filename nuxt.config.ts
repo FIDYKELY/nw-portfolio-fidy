@@ -2,16 +2,9 @@
 import vuetify from 'vite-plugin-vuetify';
 
 export default defineNuxtConfig({
-  modules: ['nuxt-seo'],
   site: {
     url: 'https://nw-portfolio-fidy.vercel.app',
     name: 'nw-portfolio-fidy'
-  },
-  sitemap: {
-    enabled: false
-  },
-  robots: {
-    enabled: true
   },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: false },
