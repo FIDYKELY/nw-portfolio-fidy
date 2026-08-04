@@ -194,7 +194,7 @@ const education = [
 const experiences = [
     {
     title: 'Développeur Web & Automatisation',
-    period: '2025-Présent',
+    period: 'Sept 2025 - Juin 2026',
     description: 'Actuellement en poste de Développeur Web & Automatisation',
     color: 'accent'
   },
