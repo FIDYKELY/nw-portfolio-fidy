@@ -448,7 +448,7 @@ const experiences = [
   {
     company: 'SMART DEV',
     title: 'Développeur Web & Automatisation',
-    period: 'Actuellement en poste',
+    period: 'Sept 2025 - Juin 2026',
     tasks: [
       'Conception et développement de plugins WordPress personnalisés de A à Z (CPT, hooks, interfaces admin, API)',
     'Refonte complète de sites WordPress avec optimisation des performances, migration et sécurisation',
@@ -481,6 +481,151 @@ const experiences = [
 ]
 
 const projects = [
+  {
+  name: 'Visalog — Assistant de Demande de Visa Schengen',
+  image: '/images/landing-page-visalog.png',
+  description: 'Plateforme web complète qui automatise et simplifie les demandes de visa Schengen pour la France depuis l\'Algérie. Système d\'automatisation intelligent qui remplit les formulaires officiels (France-Visas, Capago), analyse les profils par IA, génère les documents requis et gère le processus de bout en bout.',
+  tags: ['WordPress', 'Puppeteer', 'n8n', 'REST API', 'MySQL', 'PHP', 'JavaScript', 'Automation'],
+  demo: 'https://visalog.dz/', 
+  details: [
+    {
+      title: 'Formulaire de Demande Multi-Étapes',
+      description: 'Interface utilisateur intuitive en 3 étapes qui collecte toutes les informations nécessaires : données personnelles, situation professionnelle, projet de voyage, hébergement et financement.',
+      images: [
+        '/images/etape-1-visalog.png',
+        '/images/etape-2-visalog.png',
+        '/images/etape-3-visalog.png',
+      ],
+      features: [
+        'Formulaire dynamique avec validation en temps réel',
+        'Upload de documents (passeport, photos, justificatifs)',
+        'Sauvegarde automatique du brouillon',
+        'Calcul automatique de l\'âge et adaptation du formulaire (mineurs/majeurs)',
+        'Gestion des demandes groupées (famille)',
+        'Sélection intelligente du type de visa (court/long séjour)',
+        'Responsive design pour mobile et desktop'
+      ]
+    },
+    {
+      title: 'Automatisation France-Visas avec Puppeteer',
+      description: 'Système d\'automatisation avancé qui remplit automatiquement le formulaire officiel France-Visas en 6 étapes, gère les menus déroulants dynamiques et les validations AJAX.',
+      image: '/images/visalog-france-visa-bot.jpg',
+      images: [
+        '/images/bot-Puppeteer-franceVisa-visalog.png'
+      ],
+      features: [
+        'Remplissage automatique de 100+ champs en 6 étapes',
+        'Gestion des sélecteurs PrimeFaces dynamiques',
+        'Attente intelligente des réponses AJAX',
+        'Mapping automatique des données WordPress vers les formulaires',
+        'Fallback intelligent pour les champs manquants',
+        'Détection et gestion des erreurs avec retry automatique',
+        'Support des demandes individuelles et groupées'
+      ]
+    },
+    {
+      title: 'Automatisation Capago avec Puppeteer',
+      description: 'Bot intelligent qui gère la prise de rendez-vous sur le site Capago, remplit les formulaires de réservation et sélectionne les créneaux disponibles automatiquement.',
+      image: '/images/capago1.jpeg',
+      images: [
+        '/images/capago1.jpeg'
+      ],
+      features: [
+        'Navigation automatique dans le workflow Capago (4 étapes)',
+        'Sélection intelligente du centre de dépôt (Alger, Oran, Annaba, Constantine)',
+        'Remplissage des informations demandeur et voyage',
+        'Détection des créneaux disponibles',
+        'Gestion des cases à cocher et validations',
+        'Capture d\'écran automatique en cas d\'erreur',
+        'Support du nouveau design React/Tailwind de Capago'
+      ]
+    },
+    {
+      title: 'Workflow d\'Orchestration n8n',
+      description: 'Système d\'orchestration complet qui coordonne toutes les étapes du processus : réception de la demande, analyse IA, génération de documents, automatisation et notifications.',
+      image: '/images/visalog-n8n-workflow.jpg',
+      images: [
+        '/images/Envoie des informations.png',
+        '/images/Listing de document par mail.png',
+      ],
+      features: [
+        'Webhooks pour déclencher les workflows automatiquement',
+        'Intégration OpenAI pour l\'analyse de profil et la génération de lettres de motivation',
+        'Mapping intelligent des données entre WordPress et les sites officiels',
+        'Gestion des statuts (brouillon, en cours, validé, traité)',
+        'Notifications email automatiques à chaque étape',
+        'Système de retry en cas d\'échec',
+        'Logs détaillés pour le debugging'
+      ]
+    },
+    {
+      title: 'Génération de Documents par IA',
+      description: 'Système intelligent qui analyse le profil du demandeur et génère automatiquement les documents requis : lettre de motivation, liste de pièces justificatives, synthèse du dossier.',
+      image: '/images/visalog-ai-docs.jpg',
+      images: [
+        '/images/verif-doc.png',
+        '/images/Visa manager - Reverif doc.png',
+      ],
+      features: [
+        'Analyse du profil par OpenAI (profession, situation, projet)',
+        'Génération de lettre de motivation personnalisée',
+        'Création de checklist de documents adaptée au type de visa',
+        'Synthèse du dossier avec points forts et faiblesses',
+        'Recommandations pour renforcer le dossier',
+        'Export PDF automatique',
+        'Templates adaptables selon les profils (tourisme, études, travail, famille)'
+      ]
+    },
+    {
+      title: 'Back-Office WordPress Complet',
+      description: 'Interface d\'administration WordPress personnalisée pour gérer les demandes, suivre les statuts, valider les dossiers et superviser l\'automatisation.',
+      image: '/images/visalog-admin.jpg',
+      images: [
+        '/images/tableau-de-bord-visalog.png',
+        '/images/demande-visalog.png',
+      ],
+      features: [
+        'Tableau de bord avec statistiques en temps réel',
+        'Gestion des demandes avec filtres avancés',
+        'Système de validation multi-niveaux',
+        'Historique complet des actions',
+        'Export des données en CSV/PDF',
+        'API REST personnalisée pour l\'intégration avec n8n et Puppeteer',
+        'Gestion des utilisateurs et permissions',
+        'Compteur de demandes journalières (limite 50/jour)'
+      ]
+    },
+    {
+      title: 'Système de Paiement et Facturation',
+      description: 'Intégration complète du processus de paiement avec gestion des factures, suivi des règlements et intégration avec les frais consulaires officiels.',
+      image: '/images/visalog-payment.jpg',
+      features: [
+        'Calcul automatique des frais (honoraires + frais consulaires)',
+        'Intégration avec passerelle de paiement',
+        'Génération automatique de factures PDF',
+        'Suivi des statuts de paiement',
+        'Rappels automatiques pour les paiements en attente',
+        'Gestion des remboursements en cas de refus',
+        'Rapports financiers mensuels'
+      ]
+    },
+    {
+      title: 'Sécurité et Conformité RGPD',
+      description: 'Architecture sécurisée conforme au RGPD et à la loi algérienne 25-11 du 24 juillet 2025 sur la protection des données personnelles.',
+      image: '/images/visalog-security.jpg',
+      features: [
+        'Chiffrement des données sensibles (AES-256)',
+        'Stockage sécurisé sur serveurs européens',
+        'Consentement explicite pour le traitement des données',
+        'Droit à l\'oubli (suppression complète des données)',
+        'Audit trail complet des accès',
+        'Politique de confidentialité transparente',
+        'Enregistrement CNRC officiel',
+        'Sauvegardes automatiques quotidiennes'
+      ]
+    }
+  ]
+},
       {
     name: 'Sunny Pool — Assistant Piscine Intelligent',
     image: '/images/accueuil-sunny.png',
@@ -552,6 +697,7 @@ const projects = [
       }
     ]
   },
+  
     {
     "name": "scrapHunter — Plateforme de Prospection B2B Intelligente",
     "image": "/images/scrape-landing.png",
