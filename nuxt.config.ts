@@ -8,7 +8,11 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: false },
-  css: ['vuetify/styles', '@fortawesome/fontawesome-free/css/all.min.css'],
+  css: [
+    'vuetify/styles',
+    '@fortawesome/fontawesome-free/css/all.min.css',
+    '~/assets/styles/portfolio.css',
+  ],
   build: {
     transpile: ['vuetify'],
   },

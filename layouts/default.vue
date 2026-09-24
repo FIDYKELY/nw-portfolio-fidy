@@ -1,134 +1,60 @@
 <template>
-  <v-app>
-    <!-- App Bar -->
-    <v-app-bar
-      app
-      elevation="0"
-      color="background"
-      class="px-4"
-      height="70"
-    >
-      <v-container class="d-flex align-center">
-        <v-app-bar-title class="text-h5 font-weight-bold">
-          <span class="text-primary">Fidiniaina</span>
-        </v-app-bar-title>
-
-        <v-spacer></v-spacer>
-
-        <!-- Desktop Navigation -->
-        <div class="d-none d-md-flex">
-          <v-btn
-            v-for="item in navItems"
-            :key="item.to"
-            :to="item.to"
-            variant="text"
-            class="mx-2"
-            :class="{ 'text-primary': $route.path === item.to }"
-          >
-            {{ item.title }}
-          </v-btn>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <v-app-bar-nav-icon
-          class="d-md-none"
-          @click="drawer = !drawer"
-        ></v-app-bar-nav-icon>
-      </v-container>
-    </v-app-bar>
-
-    <!-- Mobile Navigation Drawer -->
-    <v-navigation-drawer
-      v-model="drawer"
-      temporary
-      location="right"
-    >
-      <v-list>
-        <v-list-item
-          v-for="item in navItems"
-          :key="item.to"
-          :to="item.to"
-          :title="item.title"
-          @click="drawer = false"
-        ></v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <!-- Main Content -->
-    <v-main>
-      <v-container fluid class="pa-0">
+  <v-app class="portfolio-app">
+    <div class="portfolio-shell">
+      <AppNav :active-section="activeSection" />
+      <v-main class="portfolio-main">
         <slot />
-      </v-container>
-    </v-main>
-
-    <!-- Footer -->
-    <v-footer class="bg-background">
-      <v-container>
-        <div class="d-flex flex-column align-center">
-          <div class="d-flex gap-4 mb-4">
-            <v-btn
-              v-for="social in socialLinks"
-              :key="social.icon"
-              :href="social.link"
-              target="_blank"
-              icon
-              variant="text"
-              size="small"
-            >
-              <v-icon>{{ social.icon }}</v-icon>
-            </v-btn>
-          </div>
-          <div class="text-caption text-center">
-            © {{ new Date().getFullYear() }} Fidiniaina. Tous droits réservés.
-          </div>
-        </div>
-      </v-container>
-    </v-footer>
+      </v-main>
+      <SiteFooter />
+    </div>
   </v-app>
 </template>
 
 <script setup lang="ts">
-const drawer = ref(false)
+const activeSection = inject<Ref<string>>('activeSection', ref('hero'))
 
-const navItems = [
-  { title: 'Accueil', to: '/' },
-  { title: 'Compétences', to: '/skills' },
-  { title: 'Projets', to: '/projects' },
-  { title: 'Contact', to: '/contact' },
-]
-
-const socialLinks = [
-  { icon: 'mdi-github', link: 'https://github.com/FIDYKELY' },
-  { icon: 'mdi-linkedin', link: 'https://www.linkedin.com/in/ratsimanohatra-fidiniaina-2913b8212/' },
-  { icon: 'mdi-facebook', link: 'https://www.facebook.com/profile.php?id=100004683916160' },
-]
+const route = useRoute()
+watch(
+  () => route.hash,
+  (hash) => {
+    if (hash) {
+      const id = hash.replace('#', '')
+      if (id) activeSection.value = id
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <style>
-.v-application {
-  background: rgb(var(--v-theme-background)) !important;
+.portfolio-app {
+  background: var(--bg) !important;
+  color: var(--text);
 }
 
-/* Smooth Scroll Behavior */
-html {
-  scroll-behavior: smooth;
+.portfolio-app .v-application__wrap {
+  min-height: 100vh;
 }
 
-/* Custom Scrollbar */
+.portfolio-main {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(var(--v-theme-background));
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--v-theme-primary));
+  background: var(--line);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--v-theme-secondary));
+  background: var(--accent);
 }
-</style> 
+</style>

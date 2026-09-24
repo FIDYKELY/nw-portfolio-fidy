@@ -1,153 +1,167 @@
 <template>
-  <div>
-  <v-container class="py-16">
-    <v-row>
-      <v-col cols="12" class="text-center mb-8">
-        <h1 class="text-h3 font-weight-bold mb-4">
-          Mes Projets
-        </h1>
-        <p class="text-h6 text-secondary">
-          Découvrez mes réalisations et expériences professionnelles
-        </p>
-      </v-col>
-    </v-row>
+  <v-dialog
+    :model-value="modelValue"
+    fullscreen
+    :scrim="false"
+    transition="dialog-bottom-transition"
+    @update:model-value="$emit('update:modelValue', $event)"
+  >
+    <v-card class="projects-modal">
+      <v-toolbar color="rgba(11, 14, 19, 0.95)" class="projects-modal__toolbar">
+        <v-btn icon="mdi-close" @click="$emit('update:modelValue', false)" />
+        <v-toolbar-title class="mono">Mes Projets</v-toolbar-title>
+      </v-toolbar>
 
-    <v-row>
-      <v-col cols="12" md="6">
-        <v-card class="mb-6" elevation="0" color="surface">
-          <v-card-title class="text-h5 mb-4">
-            <v-icon icon="mdi-briefcase" class="mr-2"></v-icon>
-            Expériences
-          </v-card-title>
-          <v-card-text>
-            <v-tabs
-              v-model="activeTab"
-              color="primary"
-              align-tabs="start"
-              class="mb-4"
-            >
-              <v-tab
-                v-for="(experience, index) in experiences"
-                :key="index"
-                :value="index"
-              >
-                {{ experience.company }}
-              </v-tab>
-            </v-tabs>
+      <v-card-text class="projects-modal__content">
+        <v-container class="py-8 projects-modal__container">
+          <v-row>
+            <v-col cols="12" class="text-center mb-8">
+              <h2 class="text-h3 font-weight-bold mb-4">Mes Projets</h2>
+              <p class="text-h6 text-secondary">
+                Découvrez mes réalisations et expériences professionnelles
+              </p>
+            </v-col>
+          </v-row>
 
-            <v-window v-model="activeTab">
-              <v-window-item
-                v-for="(experience, index) in experiences"
-                :key="index"
-                :value="index"
-              >
-                <div class="pa-4">
-                  <h3 class="text-h6 mb-2">{{ experience.title }}</h3>
-                  <div class="text-subtitle-2 text-medium-emphasis mb-4">
-                    {{ experience.period }}
-                  </div>
-                  <v-list>
-                    <v-list-item
-                      v-for="(task, taskIndex) in experience.tasks"
-                      :key="taskIndex"
-                      :title="task"
-                      prepend-icon="mdi-check-circle"
-                      class="text-body-2"
-                    ></v-list-item>
-                  </v-list>
-                </div>
-              </v-window-item>
-            </v-window>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" md="6">
-        <v-card elevation="0" color="surface">
-          <v-card-title class="text-h5 mb-4">
-            <v-icon icon="mdi-folder" class="mr-2"></v-icon>
-            Projets récent
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col
-                v-for="project in projects"
-                :key="project.name"
-                cols="12"
-                sm="6"
-              >
-                <v-hover v-slot="{ isHovering, props }">
-                  <v-card
-                    v-bind="props"
-                    :elevation="isHovering ? 4 : 0"
-                    class="project-card"
-                    @click="openProjectDetails(project)"
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-card class="mb-6" elevation="0" color="surface">
+                <v-card-title class="text-h5 mb-4">
+                  <v-icon icon="mdi-briefcase" class="mr-2"></v-icon>
+                  Expériences
+                </v-card-title>
+                <v-card-text>
+                  <v-tabs
+                    v-model="activeTab"
+                    color="primary"
+                    align-tabs="start"
+                    class="mb-4"
                   >
-                    <v-img
-                      :src="project.image"
-                      height="200"
-                      cover
-                      class="align-end"
+                    <v-tab
+                      v-for="(experience, index) in experiences"
+                      :key="index"
+                      :value="index"
                     >
-                      <v-card-title class="text-black text-shadow">
-                        {{ project.name }}
-                      </v-card-title>
-                    </v-img>
+                      {{ experience.company }}
+                    </v-tab>
+                  </v-tabs>
 
-                    <v-card-text>
-                      <div class="d-flex flex-wrap gap-2 mb-4">
-                        <v-chip
-                          v-for="tag in project.tags"
-                          :key="tag"
-                          size="small"
-                          color="primary"
-                          variant="outlined"
-                        >
-                          {{ tag }}
-                        </v-chip>
+                  <v-window v-model="activeTab">
+                    <v-window-item
+                      v-for="(experience, index) in experiences"
+                      :key="index"
+                      :value="index"
+                    >
+                      <div class="pa-4">
+                        <h3 class="text-h6 mb-2">{{ experience.title }}</h3>
+                        <div class="text-subtitle-2 text-medium-emphasis mb-4">
+                          {{ experience.period }}
+                        </div>
+                        <v-list>
+                          <v-list-item
+                            v-for="(task, taskIndex) in experience.tasks"
+                            :key="taskIndex"
+                            :title="task"
+                            prepend-icon="mdi-check-circle"
+                            class="text-body-2"
+                          ></v-list-item>
+                        </v-list>
                       </div>
-                      <p class="text-body-2">{{ project.description }}</p>
-                    </v-card-text>
+                    </v-window-item>
+                  </v-window>
+                </v-card-text>
+              </v-card>
+            </v-col>
 
-                    <v-card-actions>
-                      <v-btn
-                        v-if="project.github"
-                        :href="project.github"
-                        target="_blank"
-                        variant="text"
-                        prepend-icon="mdi-github"
-                        @click.stop
-                      >
-                        Code
-                      </v-btn>
-                      <v-btn
-                        v-if="project.demo"
-                        :href="project.demo"
-                        target="_blank"
-                        variant="text"
-                        prepend-icon="mdi-open-in-new"
-                        @click.stop
-                      >
-                        Demo
-                      </v-btn>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        variant="text"
-                        prepend-icon="mdi-information"
-                        @click.stop="openProjectDetails(project)"
-                      >
-                        Détails
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-hover>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+            <v-col cols="12" md="6">
+              <v-card elevation="0" color="surface">
+                <v-card-title class="text-h5 mb-4">
+                  <v-icon icon="mdi-folder" class="mr-2"></v-icon>
+                  Projets récent
+                </v-card-title>
+                <v-card-text>
+                  <v-row>
+                    <v-col
+                      v-for="project in projects"
+                      :key="project.name"
+                      cols="12"
+                      sm="6"
+                    >
+                      <v-hover v-slot="{ isHovering, props }">
+                        <v-card
+                          v-bind="props"
+                          :elevation="isHovering ? 4 : 0"
+                          class="project-card"
+                          @click="openProjectDetails(project)"
+                        >
+                          <v-img
+                            :src="project.image"
+                            height="200"
+                            cover
+                            class="align-end"
+                          >
+                            <v-card-title class="text-black text-shadow">
+                              {{ project.name }}
+                            </v-card-title>
+                          </v-img>
+
+                          <v-card-text>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                              <v-chip
+                                v-for="tag in project.tags"
+                                :key="tag"
+                                size="small"
+                                color="primary"
+                                variant="outlined"
+                              >
+                                {{ tag }}
+                              </v-chip>
+                            </div>
+                            <p class="text-body-2">{{ project.description }}</p>
+                          </v-card-text>
+
+                          <v-card-actions>
+                            <v-btn
+                              v-if="project.github"
+                              :href="project.github"
+                              target="_blank"
+                              variant="text"
+                              prepend-icon="mdi-github"
+                              @click.stop
+                            >
+                              Code
+                            </v-btn>
+                            <v-btn
+                              v-if="project.demo"
+                              :href="project.demo"
+                              target="_blank"
+                              variant="text"
+                              prepend-icon="mdi-open-in-new"
+                              @click.stop
+                            >
+                              Demo
+                            </v-btn>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                              variant="text"
+                              prepend-icon="mdi-information"
+                              @click.stop="openProjectDetails(project)"
+                            >
+                              Détails
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-hover>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 
   <!-- Project Details Modal -->
   <v-dialog
@@ -374,7 +388,6 @@
       </v-card-text>
     </v-card>
   </v-dialog>
-</div>
 </template>
 
 <script setup lang="ts">
@@ -383,7 +396,7 @@ interface ProjectDetail {
   description: string
   image: string
   features: string[]
-  images?: string[] 
+  images?: string[]
 }
 
 interface Project {
@@ -395,6 +408,15 @@ interface Project {
   demo?: string
   details: ProjectDetail[]
 }
+
+const props = defineProps<{
+  modelValue: boolean
+  openIndex?: number | null
+}>()
+
+defineEmits<{
+  'update:modelValue': [value: boolean]
+}>()
 
 const activeTab = ref(0)
 const showProjectDetails = ref(false)
@@ -412,6 +434,34 @@ const openProjectDetails = (project: Project) => {
     currentImageIndex.value[index] = 0
   })
 }
+
+// Watch for openIndex changes to auto-open a project
+watch(
+  () => props.openIndex,
+  (idx) => {
+    if (idx !== null && idx !== undefined && !Number.isNaN(idx) && projects[idx]) {
+      nextTick(() => {
+        openProjectDetails(projects[idx])
+      })
+    }
+  },
+  { immediate: true }
+)
+
+// Also watch when modal opens with an openIndex
+watch(
+  () => props.modelValue,
+  (isOpen) => {
+    if (isOpen && props.openIndex !== null && props.openIndex !== undefined) {
+      const idx = props.openIndex
+      if (!Number.isNaN(idx) && projects[idx]) {
+        nextTick(() => {
+          openProjectDetails(projects[idx])
+        })
+      }
+    }
+  }
+)
 
 const openFullscreenImage = (image: string, images: string[], currentIndex: number) => {
   fullscreenImage.value = image
@@ -486,7 +536,7 @@ const projects = [
   image: '/images/landing-page-visalog.png',
   description: 'Plateforme web complète qui automatise et simplifie les demandes de visa Schengen pour la France depuis l\'Algérie. Système d\'automatisation intelligent qui remplit les formulaires officiels (France-Visas, Capago), analyse les profils par IA, génère les documents requis et gère le processus de bout en bout.',
   tags: ['WordPress', 'Puppeteer', 'n8n', 'REST API', 'MySQL', 'PHP', 'JavaScript', 'Automation'],
-  demo: 'https://visalog.dz/', 
+  demo: 'https://visalog.dz/',
   details: [
     {
       title: 'Formulaire de Demande Multi-Étapes',
@@ -631,8 +681,8 @@ const projects = [
     image: '/images/accueuil-sunny.png',
     description: 'Application web complète qui accompagne les propriétaires de piscine au quotidien : analyse d\'eau par IA (photo de bandelette), conseils personnalisés, gestion des produits d\'entretien, météo locale et messagerie instantanée avec un assistant virtuel expert.',
     tags: ['WordPress', 'n8n', 'Elementor', 'OpenAI API', 'REST API', 'MySQL'],
-    github: 'https://github.com/FIDYKELY/sunny-pool.git', 
-    demo: 'https://sunny.trouvezpourmoi.com/', 
+    github: 'https://github.com/FIDYKELY/sunny-pool.git',
+    demo: 'https://sunny.trouvezpourmoi.com/',
     details: [
       {
         title: 'Gestion Complète de la Piscine',
@@ -697,7 +747,7 @@ const projects = [
       }
     ]
   },
-  
+
     {
     "name": "scrapHunter — Plateforme de Prospection B2B Intelligente",
     "image": "/images/scrape-landing.png",
@@ -804,7 +854,6 @@ const projects = [
     description: "Un site vitrine one-page simple réalisé avec Elementor sur WordPress, intégrant un design personnalisé et un contenu adapté aux besoins du client, avec des ajustements back-office pour faciliter la gestion future.",
     tags: ["WordPress", "Elementor", "PHP", "CSS", "Responsive Design"],
     github: null,
-    // demo: "https://mnacom.net/",
     details: [
       {
         title: "Design et Intégration",
@@ -830,13 +879,13 @@ const projects = [
         features: [
           "Configuration basique du back-office WordPress",
           "Modification des options pour faciliter la mise à jour du contenu",
-          "Utilisation d’Elementor pour une édition facile par le client",
+          "Utilisation d'Elementor pour une édition facile par le client",
           "Sécurisation des accès et des contenus"
         ]
       },
       {
         title: "Livraison et Maintenance",
-        description: "Livraison d’un site fonctionnel et facile à maintenir, prêt à évoluer selon les besoins futurs du client.",
+        description: "Livraison d'un site fonctionnel et facile à maintenir, prêt à évoluer selon les besoins futurs du client.",
         image: "/images/mnacom-maintenance.png",
         features: [
           "Mise en ligne rapide et fiable",
@@ -852,8 +901,6 @@ const projects = [
     image: '/images/project1.jpg',
     description: 'Un système e-commerce complet comprenant un frontend client, un backoffice d\'administration et une API REST. Le frontend client est développé avec Vue.js et Nuxt.js, offrant un catalogue de produits, panier d\'achat, et intégration Stripe. Le backoffice permet la gestion des utilisateurs, produits, commandes et statistiques. Le backend Node.js/Express gère toute la logique métier avec une architecture modulaire et sécurisée.',
     tags: ['Vue.js', 'Nuxt.js', 'Node.js', 'Express', 'Sequelize', 'TailwindCSS', 'Stripe'],
-    // github: 'https://github.com/username/project1',
-    // demo: 'https://project1.demo',
     details: [
       {
         title: 'Frontend Client',
@@ -955,11 +1002,33 @@ const projects = [
       }
     ]
   },
- 
 ]
 </script>
 
 <style scoped>
+.projects-modal {
+  background: var(--bg, #0b0e13) !important;
+  color: var(--text, #e4e8ef);
+}
+
+.projects-modal__toolbar {
+  border-bottom: 1px solid var(--line-soft, rgba(255,255,255,0.08));
+}
+
+.projects-modal__content {
+  padding: 0 !important;
+}
+
+.projects-modal__container {
+  width: min(1200px, calc(100% - 2.5rem));
+  max-width: none;
+}
+
+.projects-modal :deep(.v-card) {
+  border: 1px solid var(--line-soft, rgba(255,255,255,0.08));
+  border-radius: 16px;
+}
+
 .project-card {
   transition: all 0.3s ease;
   height: 100%;
@@ -1029,4 +1098,4 @@ const projects = [
 .bottom-0 {
   bottom: 16px;
 }
-</style> 
+</style>
