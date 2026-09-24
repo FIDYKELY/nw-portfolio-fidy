@@ -46,7 +46,7 @@
 
       <div class="hero__visual reveal" style="transition-delay: 0.12s">
         <div class="hero__frame">
-          <div class="hero__coords mono" aria-hidden="true">048.87°S · 002.33°E</div>
+          <div class="hero__coords mono" aria-hidden="true"></div>
           <div class="hero__ring hero__ring--1" aria-hidden="true" />
           <div class="hero__ring hero__ring--2" aria-hidden="true" />
           <div class="hero__photo-wrap">
