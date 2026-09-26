@@ -1,6 +1,6 @@
 <template>
   <header class="nav" :class="{ 'nav--scrolled': scrolled }">
-    <div class="nav__inner container-narrow">
+    <div class="nav__inner">
       <NuxtLink to="/#hero" class="nav__brand mono" aria-label="Accueil">
         <span class="nav__brand-accent">&lt;FA/&gt;</span>
       </NuxtLink>
@@ -99,6 +99,9 @@ onMounted(() => {
   align-items: center;
   gap: 1.5rem;
   width: 100%;
+  max-width: 1100px;      /* ✅ largeur maîtrisée, ni trop large ni trop étroite */
+  margin: 0 auto;         /* ✅ centre le bloc dans la page */
+  padding: 0 2rem;        /* ✅ respiration sur les côtés */
 }
 
 .nav__brand {
@@ -114,9 +117,9 @@ onMounted(() => {
 }
 
 .nav__links {
-  margin-left: auto;
   display: none;
   gap: 0.25rem;
+  margin: 0 auto;         /* ✅ centre le groupe de liens entre brand et toggle */
 }
 
 @media (min-width: 768px) {
@@ -153,7 +156,7 @@ onMounted(() => {
 }
 
 .nav__toggle {
-  margin-left: auto;
+  margin-left: auto;      /* ⚠️ garde ça UNIQUEMENT pour le mobile */
   display: flex;
   flex-direction: column;
   gap: 6px;

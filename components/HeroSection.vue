@@ -1,6 +1,10 @@
 <template>
   <section id="hero" class="hero section-pad" @mousemove="onMouseMove">
+    <!-- full-bleed 3D field: spans the whole hero, not just the portrait -->
+    <canvas ref="heroCanvasEl" class="hero__three-bg" aria-hidden="true" />
+    <div class="hero__grain" aria-hidden="true" />
     <div class="hero__glow" :style="glowStyle" aria-hidden="true" />
+
     <div class="container-narrow hero__grid">
       <div class="hero__copy">
         <p class="hero__label mono reveal">
@@ -25,7 +29,10 @@
         </p>
 
         <div class="hero__actions reveal" style="transition-delay: 0.28s">
-          <a href="#work" class="btn-primary">Voir quelques projets</a>
+          <a href="#work" class="btn-primary">
+            Voir quelques projets
+            <span class="hero__cta-arrow" aria-hidden="true">→</span>
+          </a>
           <a href="#contact" class="btn-ghost">Me contacter</a>
         </div>
 
@@ -46,16 +53,25 @@
 
       <div class="hero__visual reveal" style="transition-delay: 0.12s">
         <div class="hero__frame">
-          <div class="hero__coords mono" aria-hidden="true"></div>
-          <div class="hero__ring hero__ring--1" aria-hidden="true" />
-          <div class="hero__ring hero__ring--2" aria-hidden="true" />
-          <div class="hero__photo-wrap">
+          <span class="hero__corner hero__corner--tl" aria-hidden="true" />
+          <span class="hero__corner hero__corner--tr" aria-hidden="true" />
+          <span class="hero__corner hero__corner--bl" aria-hidden="true" />
+          <span class="hero__corner hero__corner--br" aria-hidden="true" />
+
+          <div class="hero__coords mono" aria-hidden="true">
+            <span></span>
+            <span class="hero__coords-sep"></span>
+            <span></span>
+          </div>
+
+          <div class="hero__photo-wrap" :style="photoTiltStyle">
             <SmartImage
               src="/images/graduate.jpeg"
               alt="Fidiniaina Ratsimanohatra — Web Developer"
               eager
             />
           </div>
+
           <div
             v-for="(badge, i) in heroBadges"
             :key="badge.label"
@@ -74,16 +90,27 @@
         </div>
       </div>
     </div>
+
+    <div class="hero__scroll mono" aria-hidden="true">
+      <span class="hero__scroll-line" />
+      scroll
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import * as THREE from 'three'
 import { heroBadges, socialLinks } from '~/data/portfolio'
 
 const pointer = ref({ x: 0, y: 0 })
 
 const glowStyle = computed(() => ({
   transform: `translate(${pointer.value.x * 12}px, ${pointer.value.y * 8}px)`,
+}))
+
+// subtle mouse-parallax tilt on the portrait — same pointer data as the glow
+const photoTiltStyle = computed(() => ({
+  transform: `rotateY(${pointer.value.x * 6}deg) rotateX(${-pointer.value.y * 6}deg)`,
 }))
 
 function onMouseMove(e: MouseEvent) {
@@ -112,6 +139,141 @@ function badgeStyle(index: number, delay: number) {
   }
 }
 
+/* ---------- 3D halo (three.js) ---------- */
+const heroCanvasEl = ref<HTMLCanvasElement | null>(null)
+
+let renderer: THREE.WebGLRenderer | undefined
+let scene: THREE.Scene | undefined
+let camera: THREE.PerspectiveCamera | undefined
+let wireMeshLeft: THREE.LineSegments | undefined
+let wireMeshRight: THREE.LineSegments | undefined
+let particles: THREE.Points | undefined
+let frameId: number | undefined
+let resizeObserver: ResizeObserver | undefined
+const clock = new THREE.Clock()
+
+function initThree() {
+  const canvas = heroCanvasEl.value
+  const parent = canvas?.parentElement // the <section class="hero">
+  if (!canvas || !parent) return
+  // skip on small screens: same breakpoint as the other decorative elements,
+  // and cheaper on mobile GPUs/battery
+  if (window.innerWidth < 1024) return
+
+  try {
+    const w = parent.clientWidth
+    const h = parent.clientHeight
+
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
+    renderer.setSize(w, h, false)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+    scene = new THREE.Scene()
+    camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100)
+    camera.position.z = 9
+
+    // visible world size at z=0, so nothing spawns off past the edges of the section
+    const worldH = 2 * camera.position.z * Math.tan((camera.fov * Math.PI) / 360)
+    const worldW = worldH * camera.aspect
+
+    // a subtle, larger wireframe drifting behind the copy (left/center)
+    const geoLeft = new THREE.IcosahedronGeometry(worldH * 0.32, 1)
+    wireMeshLeft = new THREE.LineSegments(
+      new THREE.EdgesGeometry(geoLeft),
+      new THREE.LineBasicMaterial({ color: 0x4fd8c4, transparent: true, opacity: 0.14 }),
+    )
+    wireMeshLeft.position.set(-worldW * 0.2, worldH * 0.06, -2)
+    scene.add(wireMeshLeft)
+
+    // the brighter wireframe halo, roughly where the portrait sits
+    const geoRight = new THREE.IcosahedronGeometry(worldH * 0.22, 1)
+    wireMeshRight = new THREE.LineSegments(
+      new THREE.EdgesGeometry(geoRight),
+      new THREE.LineBasicMaterial({ color: 0x4fd8c4, transparent: true, opacity: 0.4 }),
+    )
+    wireMeshRight.position.set(worldW * 0.27, 0, 0)
+    scene.add(wireMeshRight)
+
+    // particle field spread across the FULL width/height of the section,
+    // not just clustered around one object — this is what was reading as "tronqué"
+    const count = 180
+    const positions = new Float32Array(count * 3)
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * worldW * 0.96
+      positions[i * 3 + 1] = (Math.random() - 0.5) * worldH * 0.9
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 4
+    }
+    const pGeo = new THREE.BufferGeometry()
+    pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    particles = new THREE.Points(
+      pGeo,
+      new THREE.PointsMaterial({ color: 0xf2a93b, size: 0.045, transparent: true, opacity: 0.55 }),
+    )
+    scene.add(particles)
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const renderOnce = () => {
+      if (renderer && scene && camera) renderer.render(scene, camera)
+    }
+
+    if (reduceMotion) {
+      renderOnce()
+    } else {
+      const animate = () => {
+        frameId = requestAnimationFrame(animate)
+        const t = clock.getElapsedTime()
+        if (wireMeshRight) {
+          wireMeshRight.rotation.y = t * 0.12
+          wireMeshRight.rotation.x = t * 0.05
+        }
+        if (wireMeshLeft) {
+          wireMeshLeft.rotation.y = -t * 0.06
+          wireMeshLeft.rotation.x = t * 0.03
+        }
+        if (particles) particles.rotation.y = -t * 0.04
+        renderOnce()
+      }
+      animate()
+    }
+
+    resizeObserver = new ResizeObserver(() => {
+      if (!renderer || !camera) return
+      const w2 = parent.clientWidth
+      const h2 = parent.clientHeight
+      renderer.setSize(w2, h2, false)
+      camera.aspect = w2 / h2
+      camera.updateProjectionMatrix()
+      if (reduceMotion) renderOnce()
+    })
+    resizeObserver.observe(parent)
+  } catch (err) {
+    // fails safely on old GPUs / no WebGL — the CSS rings/glow already carry the visual
+    console.warn('Hero 3D indisponible:', err)
+  }
+}
+
+function disposeThree() {
+  if (frameId) cancelAnimationFrame(frameId)
+  resizeObserver?.disconnect()
+  wireMeshLeft?.geometry.dispose()
+  ;(wireMeshLeft?.material as THREE.Material | undefined)?.dispose()
+  wireMeshRight?.geometry.dispose()
+  ;(wireMeshRight?.material as THREE.Material | undefined)?.dispose()
+  particles?.geometry.dispose()
+  ;(particles?.material as THREE.Material | undefined)?.dispose()
+  renderer?.dispose()
+  renderer = undefined
+  scene = undefined
+  camera = undefined
+}
+
+onMounted(() => {
+  initThree()
+})
+onUnmounted(() => {
+  disposeThree()
+})
 </script>
 
 <style scoped>
@@ -124,18 +286,32 @@ function badgeStyle(index: number, delay: number) {
   overflow: hidden;
 }
 
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.045) 1px, transparent 0);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 40%, transparent 90%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 40%, transparent 90%);
+}
+
 .hero__glow {
   position: absolute;
   top: 10%;
   right: 5%;
   width: min(520px, 70vw);
   height: min(520px, 70vw);
+  z-index: 0;
   background: radial-gradient(circle, rgba(79, 216, 196, 0.14), transparent 65%);
   pointer-events: none;
   transition: transform 0.4s ease-out;
 }
 
 .hero__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
@@ -174,15 +350,9 @@ function badgeStyle(index: number, delay: number) {
 }
 
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(79, 216, 196, 0.45);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(79, 216, 196, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(79, 216, 196, 0);
-  }
+  0% { box-shadow: 0 0 0 0 rgba(79, 216, 196, 0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(79, 216, 196, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(79, 216, 196, 0); }
 }
 
 .hero__title {
@@ -198,7 +368,10 @@ function badgeStyle(index: number, delay: number) {
 }
 
 .hero__line--accent {
-  color: var(--accent);
+  background: linear-gradient(120deg, var(--accent) 20%, var(--accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero__role {
@@ -236,6 +409,16 @@ function badgeStyle(index: number, delay: number) {
   margin-bottom: 1.75rem;
 }
 
+.hero__cta-arrow {
+  display: inline-block;
+  margin-left: 0.4rem;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.btn-primary:hover .hero__cta-arrow {
+  transform: translateX(4px);
+}
+
 .hero__social {
   display: flex;
   gap: 0.35rem;
@@ -270,36 +453,47 @@ function badgeStyle(index: number, delay: number) {
   position: relative;
   width: min(380px, 88vw);
   aspect-ratio: 3 / 4;
+  perspective: 1200px;
 }
+
+.hero__corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  z-index: 3;
+  opacity: 0.7;
+}
+.hero__corner--tl { top: -8px; left: -8px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.hero__corner--tr { top: -8px; right: -8px; border-top: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+.hero__corner--bl { bottom: -8px; left: -8px; border-bottom: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+.hero__corner--br { bottom: -8px; right: -8px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
 
 .hero__coords {
   position: absolute;
-  top: -0.5rem;
+  top: -1.6rem;
   right: 0;
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
   z-index: 2;
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
-.hero__ring {
+.hero__coords-sep {
+  color: var(--accent);
+}
+
+/* 3D field spans the whole hero section — not cropped to the portrait frame */
+.hero__three-bg {
   position: absolute;
-  border: 1px solid var(--line);
-  border-radius: 50%;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
-}
-
-.hero__ring--1 {
-  inset: -6%;
-  border-color: rgba(79, 216, 196, 0.15);
-}
-
-.hero__ring--2 {
-  inset: 8% 12% auto;
-  width: 40%;
-  height: 40%;
-  border-style: dashed;
-  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .hero__photo-wrap {
@@ -310,6 +504,9 @@ function badgeStyle(index: number, delay: number) {
   border-radius: 28px;
   overflow: hidden;
   border: 1px solid var(--line);
+  transform-style: preserve-3d;
+  transition: transform 0.35s var(--ease-out);
+  will-change: transform;
   box-shadow:
     0 40px 80px rgba(0, 0, 0, 0.45),
     0 0 0 1px rgba(79, 216, 196, 0.08) inset;
@@ -334,12 +531,14 @@ function badgeStyle(index: number, delay: number) {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text);
-  background: rgba(16, 20, 27, 0.92);
+  background: rgba(16, 20, 27, 0.78);
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
   border: 1px solid var(--line);
   border-radius: 10px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
   animation: floatBadge 5s ease-in-out infinite;
-  transition: transform 0.25s var(--ease-out);
+  transition: transform 0.25s var(--ease-out), border-color 0.25s;
 }
 
 .hero__badge:hover {
@@ -359,13 +558,36 @@ function badgeStyle(index: number, delay: number) {
 }
 
 @keyframes floatBadge {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-1deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(1deg);
-  }
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 1.75rem;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0%, 100% { transform: scaleY(1); opacity: 0.4; }
+  50% { transform: scaleY(0.55); opacity: 1; }
 }
 
 @media (max-width: 1023px) {
@@ -376,6 +598,23 @@ function badgeStyle(index: number, delay: number) {
   .hero__badge:nth-child(-n + 4) {
     display: inline-flex;
     transform: scale(0.92);
+  }
+
+  .hero__coords,
+  .hero__corner,
+  .hero__scroll,
+  .hero__three-bg {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__scroll-line,
+  .hero__badge {
+    animation: none;
+  }
+  .hero__photo-wrap {
+    transition: none;
   }
 }
 </style>
