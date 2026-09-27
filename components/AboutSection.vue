@@ -10,7 +10,7 @@
         </h2>
         <p class="about__text text-muted reveal">
           Développeur web passionné par la création de solutions innovantes et automatisées.
-          Qualité du code, performance et outils fiables — adaptés aux besoins réels.
+          Qualité du code, performance et outils fiables adaptés aux besoins réels.
         </p>
         <ul class="about__tags reveal">
           <li v-for="tag in tags" :key="tag">{{ tag }}</li>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="about__education panel">
-          <h3 class="about__edu-title mono">Formation</h3>
+          <h3 class="about__edu-title mono">Formations</h3>
           <div v-for="(edu, i) in education" :key="i" class="about__edu-item">
             <div class="about__edu-period">{{ edu.period }}</div>
             <div class="about__edu-title-text">{{ edu.title }}</div>

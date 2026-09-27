@@ -2,12 +2,13 @@
   <div class="home">
     <HeroSection />
     <TechMarquee />
+    <AboutSection />
+    <ServicesSection />
+    <AutomationSection />
     <SelectedWork
       @open-project="openProject"
       @open-archive="openArchive"
     />
-    <AutomationSection />
-    <AboutSection />
     <TechStackSection />
     <ExperienceSection />
     <LabSection />

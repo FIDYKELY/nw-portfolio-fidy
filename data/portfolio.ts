@@ -17,8 +17,8 @@ export const heroBadges = [
 export const education = [
   {
     title: 'Master 2 M.I.A.G.E',
-    period: '2024',
-    description: 'E.S.M.I.A',
+    period: '2024-2025',
+    description: 'E.S.M.I.A — Méthodes informatiques appliquées à la gestion des entreprises',
   },
   {
     title: 'Master 1 M.I.A.G.E',
@@ -159,5 +159,5 @@ export const labItems = [
 
 export const stats = [
   { value: 6, suffix: '+', label: 'Projets', sub: 'Livrés & documentés' },
-  { value: 4, suffix: '', label: 'Expériences', sub: 'Rôles web & automatisation' },
+  { value: 4, suffix: '', label: 'Expériences', sub: 'Web & automatisation, data annotation' },
 ]

@@ -24,8 +24,7 @@
         </p>
 
         <p class="hero__pitch text-muted reveal" style="transition-delay: 0.22s">
-          Je conçois des expériences web modernes, des plateformes WordPress et des flux de travail numériques automatisés —
-          de l'interface utilisateur à l'orchestration avec n8n et les APIs.
+          Je conçois des sites, applications et solutions web modernes, de l’interface utilisateur au développement backend, en intégrant lorsque nécessaire des APIs et des automatisations pour créer des expériences numériques performantes et évolutives.
         </p>
 
         <div class="hero__actions reveal" style="transition-delay: 0.28s">

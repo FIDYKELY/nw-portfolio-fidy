@@ -55,8 +55,9 @@
 defineProps<{ activeSection: string }>()
 
 const items = [
-  { id: 'work', label: 'Projets', href: '#work' },
   { id: 'about', label: 'À propos', href: '#about' },
+  { id: 'services', label: 'Services', href: '#services' },
+  { id: 'work', label: 'Projets', href: '#work' },
   { id: 'stack', label: 'Compétences', href: '#stack' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ]
