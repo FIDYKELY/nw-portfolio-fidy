@@ -70,22 +70,6 @@
               eager
             />
           </div>
-
-          <div
-            v-for="(badge, i) in heroBadges"
-            :key="badge.label"
-            class="hero__badge mono"
-            :style="badgeStyle(i, badge.delay)"
-          >
-            <img
-              v-if="badge.type === 'image'"
-              :src="badge.icon"
-              :alt="badge.label"
-              class="hero__badge-img"
-            />
-            <i v-else :class="badge.icon" class="hero__badge-icon" />
-            <span>{{ badge.label }}</span>
-          </div>
         </div>
       </div>
     </div>
@@ -99,7 +83,7 @@
 
 <script setup lang="ts">
 import * as THREE from 'three'
-import { heroBadges, socialLinks } from '~/data/portfolio'
+import { socialLinks } from '~/data/portfolio'
 
 const pointer = ref({ x: 0, y: 0 })
 
@@ -118,23 +102,6 @@ function onMouseMove(e: MouseEvent) {
   pointer.value = {
     x: (e.clientX / w - 0.5) * 2,
     y: (e.clientY / h - 0.5) * 2,
-  }
-}
-
-function badgeStyle(index: number, delay: number) {
-  const positions = [
-    { top: '8%', left: '-8%' },
-    { top: '22%', right: '-6%' },
-    { bottom: '38%', left: '-12%' },
-    { bottom: '18%', right: '-4%' },
-    { top: '48%', right: '-14%' },
-    { bottom: '8%', left: '4%' },
-    { top: '62%', left: '-6%' },
-  ]
-  const pos = positions[index % positions.length]
-  return {
-    ...pos,
-    animationDelay: `${delay}s`,
   }
 }
 
@@ -519,48 +486,6 @@ onUnmounted(() => {
   pointer-events: none;
 }
 
-.hero__badge {
-  position: absolute;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.65rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text);
-  background: rgba(16, 20, 27, 0.78);
-  backdrop-filter: blur(8px) saturate(140%);
-  -webkit-backdrop-filter: blur(8px) saturate(140%);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-  animation: floatBadge 5s ease-in-out infinite;
-  transition: transform 0.25s var(--ease-out), border-color 0.25s;
-}
-
-.hero__badge:hover {
-  transform: translateY(-4px) scale(1.03);
-  border-color: rgba(79, 216, 196, 0.35);
-}
-
-.hero__badge-icon {
-  font-size: 1rem;
-  line-height: 1;
-}
-
-.hero__badge-img {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-}
-
-@keyframes floatBadge {
-  0%, 100% { transform: translateY(0) rotate(-1deg); }
-  50% { transform: translateY(-8px) rotate(1deg); }
-}
-
 .hero__scroll {
   position: absolute;
   left: 50%;
@@ -590,15 +515,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 1023px) {
-  .hero__badge {
-    display: none;
-  }
-
-  .hero__badge:nth-child(-n + 4) {
-    display: inline-flex;
-    transform: scale(0.92);
-  }
-
   .hero__coords,
   .hero__corner,
   .hero__scroll,
@@ -608,8 +524,7 @@ onUnmounted(() => {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__scroll-line,
-  .hero__badge {
+  .hero__scroll-line {
     animation: none;
   }
   .hero__photo-wrap {

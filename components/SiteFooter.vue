@@ -3,7 +3,7 @@
     <div class="container-narrow footer__inner">
       <span class="footer__brand mono">&lt;FA/&gt;</span>
       <p class="footer__copy text-muted">
-        © {{ year }} Fidiniaina Ratsimanohatra. Fait avec Nuxt & Vue.
+        © {{ year }} Fidiniaina Ratsimanohatra. Fait avec Nuxt.
       </p>
       <div class="footer__links">
         <a href="#work">Projets</a>
